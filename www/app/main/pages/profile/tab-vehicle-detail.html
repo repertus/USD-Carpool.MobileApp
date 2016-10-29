@@ -1,0 +1,43 @@
+<ion-view view-title="Vehicle Info">
+  <ion-content>
+    <div class="list">
+      <label class="item item-input">
+        <span class="input-label">Make</span>
+        <input type="text" ng-model="vm.userVehicle.vehicle.vehicleMake">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Model</span>
+        <input type="text" ng-model="vm.userVehicle.vehicle.vehicleModel">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Color</span>
+        <input type="text" ng-model="vm.userVehicle.vehicle.vehicleColor">
+      </label>
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Available Seats
+        </div>
+        <select ng-model="vm.userVehicle.vehicle.availableSeats">
+          <option>1</option>
+          <option>2</option>
+          <option selected>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option>6</option>
+          <option>7</option>
+        </select>
+      </label>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col col-80 col-offset-10">
+        <a class="button button-block button-stable icon-left ion-plus" ng-click="vm.updateVehicle()">
+          Add Vehicle
+        </a>
+      </div>
+    </div>
+<pre>
+     {{vm.userVehicle | json}}
+</pre>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,28 @@
+<ion-view view-title="Routes">
+  <ion-content class="padding">
+    <br>
+    <h1>Routes</h1>
+
+    <div class="list">
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Origination Route
+        </div>
+        <select ng-model="vm.myRoute" ng-options="route in vm.routes">
+        </select>
+      </label>
+    </div>
+
+    <!-- <div class="list">
+      <label class="item item-input item-select">
+       <div class="input-label">
+         Return Route
+       </div>
+       <select collection-repeat="route in vm.routes">
+         <option ng-if="route.originationTrip == false">{{route.routeName}}</option>
+       </select>
+      </label>
+    </div> -->
+
+  </ion-content>
+</ion-view>

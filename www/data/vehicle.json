@@ -1,0 +1,31 @@
+{
+     "vehicle": [
+          {
+               "id": 1,
+               "Make": "Ford",
+               "Model": "Mustang",
+               "Color": "White",
+               "Seats": 3,
+               "Picture": "",
+               "vehicleActiveStatus": true
+          },
+          {
+               "id": 1,
+               "Make": "Honda",
+               "Model": "Accord",
+               "Color": "Red",
+               "Seats": 3,
+               "Picture": "",
+               "vehicleActiveStatus": true
+          },
+          {
+               "id": 1,
+               "Make": "Toyota",
+               "Model": "Camry",
+               "Color": "Gold",
+               "Seats": 3,
+               "Picture": "",
+               "vehicleActiveStatus": true
+          }
+     ]
+}
