@@ -20,12 +20,12 @@
         })
 
           /////// Dashboard State///////
-          .state('tab.dash', {
-               url: '/dash',
+          .state('tab.home', {
+               url: '/home',
                views: {
-                 'tab-dash': {
-                   templateUrl: 'app/main/apps/dashboard/tab-dash.html'
-
+                 'tab-home': {
+                   templateUrl: 'app/main/apps/dashboard/tab-home.html',
+                   controller: 'HomeController as vm'
                  }
                }
           })
@@ -152,6 +152,6 @@
      //      templates: 'app/main/apps/trips/trip.schedule.html'
      //    });
 
-      $urlRouterProvider.otherwise('/tab/dash');
+      $urlRouterProvider.otherwise('/tab/home');
     };
 })();

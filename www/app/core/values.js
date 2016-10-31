@@ -3,5 +3,6 @@
 
     angular
         .module('app')
-        .value('apiUrl', "http://localhost:3000/api");
+     //    .value('apiUrl', "http://localhost:3000/api");
+        .value('apiUrl', 'http://localhost:8080/api');
 })();

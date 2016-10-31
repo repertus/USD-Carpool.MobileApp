@@ -1,10 +1,27 @@
 /* Empty. Add your own CSS if you like */
+/*.pane {
+    background-color: #69A7CC;
+}*/
+
+h2 {
+     color: #fff;
+}
+
+p {
+     color: #69A7CC;
+}
+
+.dashBoard{
+     text-align: center;
+     color: #003B70;
+}
 
 /************************
 **Top title bar styling**
 ************************/
 .bar.bar-stable {
      background-color: #003B70;
+     /*background-color: #69A7CC;*/
 }
 
 .bar.bar-stable .title {
@@ -16,6 +33,7 @@
 *************************/
 .tabs {
      background-color: #003B70;
+     /*background-color: #69A7CC;*/
 }
 
 ion-tabs.tabs-color-active-positive .tab-item {
@@ -32,4 +50,34 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
 .button.button-stable {
      background-color: #003B70;
      color: #fff;
+}
+
+.card .item {
+     background-color: #003B70;
+     color: #fff;
+     text-align: center;
+}
+
+#avatarPlaceHolder{
+     text-align: center;
+     /*font-size: 100px;*/
+     /*background-color: #003B70;*/
+     /*border-radius: 100%;*/
+     width: 110px;
+     height: 110px;
+     position: relative;
+     border-radius: 100%;
+     border-style: solid;
+     border-color: #69A7CC;
+     border-width: 3px;
+}
+
+#avatarImage{
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     font-size: 100px;
+     transform: translate(-50%, -50%);
+     display: block;
+     color: #69A7CC;
 }

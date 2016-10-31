@@ -1,0 +1,44 @@
+<ion-view view-title="Home">
+  <ion-content class="padding">
+
+    <div class="row">
+      <div class="col col-33 col-offset-33">
+        <div id="avatarPlaceHolder">
+          <i class="icon ion-person" id="avatarImage"></i>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+  <div class="item item-text-wrap">
+       <br>
+       <h2>Welcome
+        {{vm.profile.firstName}}
+        {{vm.profile.lastName}}!</h2>
+          So far you have avoided 14 miles of driving!
+  </div>
+</div>
+    <div class="dashBoard">
+      <h4>Welcome
+        {{vm.profile.firstName}}
+        {{vm.profile.lastName}}!</h4>
+      <p>
+        So far you have avoided 14 miles of driving!
+      </p>
+    </div>
+    <br>
+    <button class="button button-block button-positive">
+      Add New Trip
+    </button>
+    <br>
+    <div class="col col-50">
+      <p>Are you a driver?</p>
+      <label class="toggle">
+        <input type="checkbox" ng-model="vm.profile.driver[0].driverRole" ng-change="vm.updateDriver()">
+        <div class="track">
+          <div class="handle"></div>
+        </div>
+      </label>
+    </div>
+
+  </ion-content>
+</ion-view>

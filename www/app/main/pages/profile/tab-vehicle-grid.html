@@ -5,7 +5,8 @@
   <ion-content>
     <ion-list>
       <ion-item class="item item-avatar item-toggle" collection-repeat="car in vm.cars">
-        <img ng-src="{{car.vehiclePic}}">
+        <!-- <img ng-src="{{car.vehiclePic}}" ng-if="car.vehiclePic != null"> -->
+        <i class="icon ion-model-s" ng-if="car.vehiclePic != null"></i>
         <h2>{{car.vehicleMake}}
           /
           {{car.vehicleModel}}</h2>
