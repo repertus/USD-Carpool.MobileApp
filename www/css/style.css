@@ -3,18 +3,10 @@
     background-color: #69A7CC;
 }*/
 
-h2 {
-     color: #fff;
-}
-
-p {
-     color: #69A7CC;
-}
-
-.dashBoard{
+/*.dashBoard{
      text-align: center;
      color: #003B70;
-}
+}*/
 
 /************************
 **Top title bar styling**
@@ -52,10 +44,26 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
      color: #fff;
 }
 
+
+/************************
+**Home Tab page styling**
+************************/
+.card, .list-inset {
+     border-radius: 10px;
+}
+
 .card .item {
      background-color: #003B70;
-     color: #fff;
      text-align: center;
+}
+
+b, strong {
+     font-size: 18px;
+     color: #fff;
+}
+
+.item p {
+     color: #fff;
 }
 
 #avatarPlaceHolder{

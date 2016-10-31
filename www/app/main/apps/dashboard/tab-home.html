@@ -11,25 +11,24 @@
     <div class="card">
   <div class="item item-text-wrap">
        <br>
-       <h2>Welcome
-        {{vm.profile.firstName}}
-        {{vm.profile.lastName}}!</h2>
-          So far you have avoided 14 miles of driving!
+       <div>
+            <strong>Welcome
+            {{vm.profile.firstName}}
+            {{vm.profile.lastName}}!</strong>
+       </div>
+       <br>
+       <div>
+           <p>
+               So far you have avoided 14 miles of driving!
+           </p>
+       </div>
+
   </div>
 </div>
-    <div class="dashBoard">
-      <h4>Welcome
-        {{vm.profile.firstName}}
-        {{vm.profile.lastName}}!</h4>
-      <p>
-        So far you have avoided 14 miles of driving!
-      </p>
-    </div>
     <br>
     <button class="button button-block button-positive">
       Add New Trip
     </button>
-    <br>
     <div class="col col-50">
       <p>Are you a driver?</p>
       <label class="toggle">
