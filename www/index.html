@@ -16,9 +16,15 @@
       }
     </script>-->
 
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <!-- bower:css -->
     <link rel="stylesheet" href="lib/angular-toastr/dist/angular-toastr.css" />
+    <!-- endbower -->
+
+    <!-- inject:css -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- endinject -->
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
@@ -30,19 +36,21 @@
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
 
-    <!-- Bower components -->
+    <!-- bower:js -->
+    <!-- <script src="lib/angular/angular.js"></script> -->
     <script src="lib/angular-toastr/dist/angular-toastr.tpls.js"></script>
+    <!-- endbower -->
 
-    <!-- your app's js -->
+    <!-- inject:js -->
+    <script src="app/app.config.js"></script>
     <script src="app/app.module.js"></script>
     <script src="app/app.route.js"></script>
-    <script src="app/app.config.js"></script>
     <script src="app/core/friends.factory.js"></script>
-    <script src="app/core/vehicle.factory.js"></script>
     <script src="app/core/profile.factory.js"></script>
-    <script src="app/core/trip-routes.factory.js"></script>
     <script src="app/core/school.factory.js"></script>
+    <script src="app/core/trip-routes.factory.js"></script>
     <script src="app/core/values.js"></script>
+    <script src="app/core/vehicle.factory.js"></script>
     <script src="app/main/apps/dashboard/home.controller.js"></script>
     <script src="app/main/apps/friends/friends.controller.js"></script>
     <script src="app/main/pages/profile/my_info.controller.js"></script>
@@ -50,9 +58,7 @@
     <script src="app/main/pages/profile/routes.controller.js"></script>
     <script src="app/main/pages/profile/vehicle.detail.controller.js"></script>
     <script src="app/main/pages/profile/vehicle.grid.controller.js"></script>
-    <!-- <script src="js/app.js"></script> -->
-    <!-- <script src="js/controllers.js"></script>
-    <script src="js/services.js"></script> -->
+    <!-- endinject -->
   </head>
   <body ng-app="app">
     <!--
