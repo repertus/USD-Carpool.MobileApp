@@ -1,43 +1,50 @@
 <ion-view view-title="Home">
   <ion-content class="padding">
 
-    <div class="row">
-      <div class="col col-33 col-offset-33">
-        <div id="avatarPlaceHolder">
-          <i class="icon ion-person" id="avatarImage"></i>
+    <div class="row" id="homeContent">
+      <div id="avatarPlaceHolderCircle"></div>
+      <div id="avatarPlaceHolder"></div>
+      <i class="icon ion-android-person" id="avatarImage"></i>
+      <div class="card" id="homeCard">
+        <div class="item item-text-wrap">
+          <br>
+          <br>
+          <br>
+          <div>
+            <strong>Welcome
+              {{vm.profile.firstName}}
+              {{vm.profile.lastName}}!</strong>
+          </div>
+          <br>
+          <div>
+            <p class="homeTab">
+              So far you have avoided 14 miles of driving!
+            </p>
+          </div>
         </div>
       </div>
     </div>
     <div class="card">
-  <div class="item item-text-wrap">
-       <br>
-       <div>
-            <strong>Welcome
-            {{vm.profile.firstName}}
-            {{vm.profile.lastName}}!</strong>
-       </div>
-       <br>
-       <div>
-           <p>
-               So far you have avoided 14 miles of driving!
-           </p>
-       </div>
-
-  </div>
-</div>
+      <div class="item item-text-wrap">
+        <div class="row">
+          <div class="col col-80">
+            Are you a driver?
+          </div>
+          <div class="col col-25">
+            <label class="toggle">
+              <input type="checkbox" ng-model="vm.profile.driver[0].driverRole" ng-change="vm.updateDriver()">
+              <div class="track">
+                <div class="handle"></div>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
     <br>
     <button class="button button-block button-positive">
       Add New Trip
     </button>
-    <div class="col col-50">
-      <p>Are you a driver?</p>
-      <label class="toggle">
-        <input type="checkbox" ng-model="vm.profile.driver[0].driverRole" ng-change="vm.updateDriver()">
-        <div class="track">
-          <div class="handle"></div>
-        </div>
-      </label>
-    </div>
 
   </ion-content>
 </ion-view>

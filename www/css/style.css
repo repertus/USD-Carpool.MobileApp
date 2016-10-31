@@ -3,17 +3,12 @@
     background-color: #69A7CC;
 }*/
 
-/*.dashBoard{
-     text-align: center;
-     color: #003B70;
-}*/
-
 /************************
 **Top title bar styling**
 ************************/
 .bar.bar-stable {
      background-color: #003B70;
-     /*background-color: #69A7CC;*/
+     border-bottom: 3px solid #69A7CC;
 }
 
 .bar.bar-stable .title {
@@ -25,7 +20,6 @@
 *************************/
 .tabs {
      background-color: #003B70;
-     /*background-color: #69A7CC;*/
 }
 
 ion-tabs.tabs-color-active-positive .tab-item {
@@ -34,6 +28,10 @@ ion-tabs.tabs-color-active-positive .tab-item {
 
 ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
      color: #fff;
+}
+
+.scroll-content {
+     border-bottom: 4px solid #69A7CC;
 }
 
 /**************************
@@ -48,13 +46,65 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
 /************************
 **Home Tab page styling**
 ************************/
+#homeContent{
+     height: 250px;
+}
+
+#avatarPlaceHolderCircle{
+     width: 120px;
+     height: 120px;
+     left: 50%;
+     top: 15%;
+     position: absolute;
+     transform: translate(-50%, -50%);
+     border-radius: 100%;
+     border-style: solid;
+     border-color: #003B70;
+     border-width: 6px;
+     background-color: #fff;
+     z-index: 2;
+}
+
+#avatarPlaceHolder{
+     width: 110px;
+     height: 110px;
+     left: 50%;
+     top: 15%;
+     position: absolute;
+     transform: translate(-50%, -50%);
+     border-radius: 100%;
+     border-style: solid;
+     border-color: #69A7CC;
+     border-width: 4px;
+     z-index: 4;
+}
+
+#avatarImage{
+     position: absolute;
+     z-index: 3;
+     top: 15%;
+     left: 50%;
+     font-size: 100px;
+     transform: translate(-50%, -50%);
+     display: block;
+     color: #69A7CC;
+}
+
+#homeCard{
+     position: absolute;
+     top: 10%;
+     z-index: 1;
+     width: 97%;
+}
+
 .card, .list-inset {
      border-radius: 10px;
 }
 
 .card .item {
      background-color: #003B70;
-     text-align: center;
+     vertical-align: middle;
+     color: #fff;
 }
 
 b, strong {
@@ -63,29 +113,10 @@ b, strong {
 }
 
 .item p {
-     color: #fff;
-}
-
-#avatarPlaceHolder{
-     text-align: center;
-     /*font-size: 100px;*/
-     /*background-color: #003B70;*/
-     /*border-radius: 100%;*/
-     width: 110px;
-     height: 110px;
-     position: relative;
-     border-radius: 100%;
-     border-style: solid;
-     border-color: #69A7CC;
-     border-width: 3px;
-}
-
-#avatarImage{
-     position: absolute;
-     top: 50%;
-     left: 50%;
-     font-size: 100px;
-     transform: translate(-50%, -50%);
-     display: block;
      color: #69A7CC;
+}
+
+.button.button-positive {
+     background-color: #003B70;
+     color: #fff;
 }
