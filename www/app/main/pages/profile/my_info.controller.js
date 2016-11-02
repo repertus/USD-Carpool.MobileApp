@@ -5,10 +5,10 @@
         .module('app')
         .controller('MyInfoController', MyInfoController);
 
-    MyInfoController.$inject = ['profileFactory', 'schoolFactory', '$stateParams', '$state'];
+    MyInfoController.$inject = ['profileFactory', 'schoolFactory', '$stateParams', '$state', '$cordovaCamera', 'toastr'];
 
     /* @ngInject */
-    function MyInfoController(profileFactory, schoolFactory, $stateParams, $state) {
+    function MyInfoController(profileFactory, schoolFactory, $stateParams, $state, $cordovaCamera, toastr) {
          var vm = this;
 
         //properties
@@ -16,6 +16,7 @@
 
         //methods
         vm.getAllSchools = getAllSchools;
+        vm.takeSelfPicture = takeSelfPicture;
         vm.updateProfile = updateProfile;
 
         activate();
@@ -44,6 +45,31 @@
                        vm.schools = schoolData;
                   }
              );
+        }
+
+        function takeSelfPicture() {
+             var options = {
+                  quality: 50,
+               //    destinationType: Camera.DestinationType.FILE_URI,
+                    destinationType: Camera.DestinationType.DATA_URL,
+                  sourceType: Camera.PictureSourceType.CAMERA,
+                  allowEdit: true,
+                  encodingType: 0,
+                  targetWidth: 100,
+                  targetHeight: 100,
+                  cameraDirection: 1,
+                  saveToPhotoAlbum: false,
+                  correctOrientation: true
+             };
+
+
+             $cordovaCamera.getPicture(options).then(function(imageData){
+                  //var image = document.getElementById('myImage');
+               //    image.src = 'data:image/jpeg;based64,' + imageData;
+                  vm.selfPic = 'data:image/jpeg;based64,' + imageData;
+             }, function(err){
+                  toastr.error('Error taking picture', 'Error');
+             });
         }
     }
 })();

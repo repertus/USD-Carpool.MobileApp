@@ -75,7 +75,7 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
      border-radius: 100%;
      border-style: solid;
      border-color: #69A7CC;
-     border-width: 4px;
+     border-width: 5px;
      z-index: 4;
 }
 
@@ -88,6 +88,18 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
      transform: translate(-50%, -50%);
      display: block;
      color: #69A7CC;
+}
+
+#selfPicHolder {
+     position: absolute;
+     z-index: 3;
+     top: 15%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     display: block;
+     width: 100px;
+     height: 100px;
+     border-radius: 100%;
 }
 
 #homeCard{
@@ -103,8 +115,11 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
 
 .card .item {
      background-color: #003B70;
-     vertical-align: middle;
      color: #fff;
+}
+
+#welcomeMessage {
+     text-align: center;
 }
 
 b, strong {

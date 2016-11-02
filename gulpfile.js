@@ -12,7 +12,11 @@ var wiredep = require('wiredep').stream;
 gulp.task('inject', function() {
     var sources = gulp.src('./www/index.html');
     return gulp.src('./www/index.html')
-          .pipe(wiredep())
+          .pipe(wiredep({
+               directory: './www/lib',
+               // devDependencies: true,
+              exclude: ['/angular/', 'angular-animate', 'angular-mocks', 'angular-resource',       'angular-sanitize', 'angular-ui-router']
+            }))
           .pipe(inject(gulp.src(paths.javascript, {read: false}), {relative: true}))
           .pipe(gulp.dest('./www'))
           .pipe(inject(gulp.src(paths.css, {read: false}), {relative: true}))
@@ -21,7 +25,7 @@ gulp.task('inject', function() {
 
 var paths = {
   sass: ['./scss/**/*.scss'],
-  javascript: ['./www/app/**/*.js'],
+  javascript: ['./www/app/**/*.module.js', './www/app/**/*.js'],
   css: ['./www/css/**/*.css']
 };
 

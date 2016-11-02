@@ -15,6 +15,7 @@
           .catch(err => console.log('Error', err));
       }
     </script>-->
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
 
     <!-- bower:css -->
     <link rel="stylesheet" href="lib/angular-toastr/dist/angular-toastr.css" />
@@ -23,8 +24,6 @@
     <!-- inject:css -->
     <link rel="stylesheet" href="css/style.css">
     <!-- endinject -->
-
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
@@ -37,13 +36,13 @@
     <script src="cordova.js"></script>
 
     <!-- bower:js -->
-    <!-- <script src="lib/angular/angular.js"></script> -->
     <script src="lib/angular-toastr/dist/angular-toastr.tpls.js"></script>
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
     <!-- endbower -->
 
     <!-- inject:js -->
-    <script src="app/app.config.js"></script>
     <script src="app/app.module.js"></script>
+    <script src="app/app.config.js"></script>
     <script src="app/app.route.js"></script>
     <script src="app/core/friends.factory.js"></script>
     <script src="app/core/profile.factory.js"></script>
