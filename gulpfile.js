@@ -6,12 +6,30 @@ var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
+var inject = require('gulp-inject');
+var wiredep = require('wiredep').stream;
+
+gulp.task('inject', function() {
+    var sources = gulp.src('./www/index.html');
+    return gulp.src('./www/index.html')
+          .pipe(wiredep({
+               directory: './www/lib',
+               // devDependencies: true,
+              exclude: ['/angular/', 'angular-animate', 'angular-mocks', 'angular-resource',       'angular-sanitize', 'angular-ui-router']
+            }))
+          .pipe(inject(gulp.src(paths.javascript, {read: false}), {relative: true}))
+          .pipe(gulp.dest('./www'))
+          .pipe(inject(gulp.src(paths.css, {read: false}), {relative: true}))
+          .pipe(gulp.dest('./www'));
+});
 
 var paths = {
-  sass: ['./scss/**/*.scss']
+  sass: ['./scss/**/*.scss'],
+  javascript: ['./www/app/**/*.module.js', './www/app/**/*.js'],
+  css: ['./www/css/**/*.css']
 };
 
-gulp.task('default', ['sass']);
+gulp.task('default', ['sass', 'inject']);
 
 gulp.task('sass', function(done) {
   gulp.src('./scss/ionic.app.scss')
@@ -28,6 +46,7 @@ gulp.task('sass', function(done) {
 
 gulp.task('watch', function() {
   gulp.watch(paths.sass, ['sass']);
+  gulp.watch([paths.javascript, paths.css], ['inject']);
 });
 
 gulp.task('install', ['git-check'], function() {

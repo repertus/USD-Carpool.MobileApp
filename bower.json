@@ -6,7 +6,6 @@
   },
   "dependencies": {
     "angular-toastr": "^2.1.1",
-    "angularfire": "^2.0.2",
-    "Ionic Autocomplete Directive": "ionic-autocomplete#*"
+    "ngCordova": "^0.1.27-alpha"
   }
 }
