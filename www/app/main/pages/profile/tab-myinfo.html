@@ -7,8 +7,7 @@
          <div id="avatarPlaceHolderCircle"></div>
          <div id="avatarPlaceHolder"></div>
          <i ng-show="vm.selfPic === undefined" class="icon ion-android-person" id="avatarImage"></i>
-         <!-- <img ng-show="vm.selfPic !== undefined" src="img/ben.png" height="100px" id="selfPicHolder"> -->
-         <img ng-show="vm.selfPic !== undefined" src="{{vm.selfPic}}" height="100px" id="selfPicHolder">
+         <img ng-show="vm.selfPic !== undefined" ng-src="{{vm.selfPic}}" id="selfPicHolder">
     </div>
     <div class="list">
       <label class="item item-input">

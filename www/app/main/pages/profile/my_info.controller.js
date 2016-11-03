@@ -50,23 +50,19 @@
         function takeSelfPicture() {
              var options = {
                   quality: 50,
-               //    destinationType: Camera.DestinationType.FILE_URI,
-                    destinationType: Camera.DestinationType.DATA_URL,
+                  destinationType: Camera.DestinationType.FILE_URI,
                   sourceType: Camera.PictureSourceType.CAMERA,
                   allowEdit: true,
                   encodingType: 0,
                   targetWidth: 100,
                   targetHeight: 100,
                   cameraDirection: 1,
-                  saveToPhotoAlbum: false,
+                  saveToPhotoAlbum: true,
                   correctOrientation: true
              };
 
-
              $cordovaCamera.getPicture(options).then(function(imageData){
-                  //var image = document.getElementById('myImage');
-               //    image.src = 'data:image/jpeg;based64,' + imageData;
-                  vm.selfPic = 'data:image/jpeg;based64,' + imageData;
+                  vm.selfPic = imageData;
              }, function(err){
                   toastr.error('Error taking picture', 'Error');
              });
