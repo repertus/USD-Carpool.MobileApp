@@ -5,28 +5,25 @@
         .module('app')
         .controller('ProfileController', ProfileController);
 
-    ProfileController.$inject = ['profileFactory'];
+    ProfileController.$inject = ['profileFactory', 'sharedDataFactory', '$scope'];
 
     /* @ngInject */
-    function ProfileController(profileFactory) {
+    function ProfileController(profileFactory, sharedDataFactory, $scope) {
         var vm = this;
 
         //properties
-        vm.profileId = "58158d20f998ef47191ce743";
+     //    vm.profileId = "58158d20f998ef47191ce743";
 
+     //Methods
 
-        //methods
+        $scope.$on('$ionicView.enter', function() {
+             vm.profile = sharedDataFactory.getProfile();
+        });
 
-        activate();
-
-        function activate() {
-          //    var profileId = "57fecaca9d8db436ab73208a";
-             //
-          //    profileFactory.getByProfile(profileId).then(
-          //         function (profile) {
-          //              vm.profile = profile.user;
-          //         }
-          //    );
-        }
+     //    $scope.$on('$ionicView.enter', function() {
+     //         sharedDataFactory.onChangeData($scope, function(data){
+     //              vm.profileId = data._id;
+     //         });
+     //    });
     }
 })();
