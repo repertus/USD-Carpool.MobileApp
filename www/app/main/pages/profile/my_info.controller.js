@@ -5,10 +5,10 @@
         .module('app')
         .controller('MyInfoController', MyInfoController);
 
-    MyInfoController.$inject = ['profileFactory', 'schoolFactory', '$stateParams', '$state', '$cordovaCamera', 'toastr'];
+    MyInfoController.$inject = ['profileFactory', 'schoolFactory', '$stateParams', '$state', '$cordovaCamera', '$ionicActionSheet', '$timeout', 'toastr'];
 
     /* @ngInject */
-    function MyInfoController(profileFactory, schoolFactory, $stateParams, $state, $cordovaCamera, toastr) {
+    function MyInfoController(profileFactory, schoolFactory, $stateParams, $state, $cordovaCamera, $ionicActionSheet, $timeout, toastr) {
          var vm = this;
 
         //properties
@@ -16,7 +16,7 @@
 
         //methods
         vm.getAllSchools = getAllSchools;
-        vm.takeSelfPicture = takeSelfPicture;
+        vm.selfPictureUpdate = selfPictureUpdate;
         vm.updateProfile = updateProfile;
 
         activate();
@@ -27,6 +27,7 @@
              profileFactory.getByProfile(profileId).then(
                   function (profile) {
                        vm.profile = profile.user;
+                       vm.selfPic = profile.user.picture;
                   }
              );
         }
@@ -47,25 +48,62 @@
              );
         }
 
-        function takeSelfPicture() {
-             var options = {
-                  quality: 50,
-                  destinationType: Camera.DestinationType.FILE_URI,
-                  sourceType: Camera.PictureSourceType.CAMERA,
-                  allowEdit: true,
-                  encodingType: 0,
-                  targetWidth: 100,
-                  targetHeight: 100,
-                  cameraDirection: 1,
-                  saveToPhotoAlbum: true,
-                  correctOrientation: true
-             };
+        function selfPictureUpdate() {
+             // Show the action sheet
+             var hideSheet = $ionicActionSheet.show({
+               buttons: [
+                 { text: 'Update' }
+               ],
+               destructiveText: 'Delete',
+               titleText: 'Update your Profile Picture',
+               cancelText: 'Cancel',
+               cancel: function() {
+                    // add cancel code..
+                  },
+                  //Deletes the profile image from the server
+                  destructiveButtonClicked: function() {
+                       var profile = {_id: profileId, picture: ''};
+                      profileFactory.updateProfile(profile).then(
+                           function(){
+                                vm.selfPic = '';
+                           }
+                      );
 
-             $cordovaCamera.getPicture(options).then(function(imageData){
-                  vm.selfPic = imageData;
-             }, function(err){
-                  toastr.error('Error taking picture', 'Error');
+                        return true;
+                   },
+               // Takes the profile picture and provides a base64 image that is uploaded into the server
+               buttonClicked: function(index) {
+                    var options = {
+                         quality: 50,
+                         destinationType: Camera.DestinationType.DATA_URL,
+                         sourceType: Camera.PictureSourceType.CAMERA,
+                         allowEdit: true,
+                         encodingType: 0,
+                         targetWidth: 100,
+                         targetHeight: 100,
+                         cameraDirection: 1,
+                         saveToPhotoAlbum: true,
+                         correctOrientation: false
+                    };
+
+                    $cordovaCamera.getPicture(options).then(function(imageData){
+                         vm.selfPic = "data:image/jpeg;base64," + imageData;
+
+                         var profile = {_id: profileId, picture: vm.selfPic};
+                         profileFactory.updateProfile(profile);
+
+                    }, function(err){
+                         toastr.error('Error taking picture', 'Error');
+                    });
+
+                 return true;
+               }
              });
+
+             // Hide the sheet after four seconds
+             $timeout(function() {
+               hideSheet();
+          }, 4000);
         }
     }
 })();
