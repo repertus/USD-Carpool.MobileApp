@@ -18,7 +18,4 @@
         }
       });
 });
-    // .config(function(filepickerProvider) {
-    //   filepickerProvider.setKey('AYIVeFVdTQYi3FrkEDew4z');
-    // });
 })();

@@ -6,6 +6,5 @@
             'ionic',
             'toastr',
             'ngCordova'
-          //   'angular-filepicker'
         ]);
 })();

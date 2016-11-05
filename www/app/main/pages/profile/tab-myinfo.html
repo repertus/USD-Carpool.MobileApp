@@ -1,12 +1,13 @@
 <ion-view view-title="My Info">
      <ion-nav-buttons side="right">
-       <a class="button button-icon ion-camera button-positive" ng-click="vm.takeSelfPicture()"></a>
+       <!-- <a class="button button-icon ion-camera button-positive" ng-click="vm.takeSelfPicture()"></a> -->
+       <a class="button button-icon ion-camera button-positive" ng-click="vm.selfPictureUpdate()"></a>
      </ion-nav-buttons>
   <ion-content>
        <div class="row" id="myInfoAvatar">
          <div id="avatarPlaceHolderCircle"></div>
          <div id="avatarPlaceHolder"></div>
-         <i ng-show="vm.selfPic === undefined" class="icon ion-android-person" id="avatarImage"></i>
+         <i ng-show="vm.selfPic === undefined || vm.selfPic === ''" class="icon ion-android-person" id="avatarImage"></i>
          <img ng-show="vm.selfPic !== undefined" ng-src="{{vm.selfPic}}" id="selfPicHolder">
     </div>
     <div class="list">
