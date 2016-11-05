@@ -5,10 +5,10 @@
     .module('app')
     .controller('HomeController', HomeController);
 
-  HomeController.$inject = ['profileFactory', '$scope'];
+  HomeController.$inject = ['profileFactory', 'sharedDataFactory', '$scope'];
 
   /* @ngInject */
-  function HomeController(profileFactory, $scope) {
+  function HomeController(profileFactory, sharedDataFactory, $scope) {
     var vm = this;
 
     //Properties
@@ -28,12 +28,18 @@
     //Allows for a smooth transtion of profile picture from
     //the default avatar image during the start-up along with profile information
     $scope.$on('$ionicView.beforeEnter', function() {
-         profileFactory.getByProfile(profileId).then(
-          function(profile) {
-            vm.profile = profile.user;
-          }
-        );
-  });
+      profileFactory.getByProfile(profileId).then(
+        function(profile) {
+          vm.profile = profile.user;
+        }
+      );
+    });
+
+    //Takes the profile information and shares with other dependent views
+    //not connected through the state parameters
+    $scope.$watch('vm.profile', function(newValue, oldValue){
+         if (newValue !== oldValue) sharedDataFactory.setProfile(newValue);
+    }, true);
   }
 
 
