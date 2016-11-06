@@ -17,6 +17,7 @@
 
         //methods
         vm.activeVehicle = activeVehicle;
+        vm.shouldShowDelete = false;
         vm.removeVehicle = removeVehicle;
         vm.profileId = $stateParams.profileId;
 
@@ -25,34 +26,35 @@
         function activate() {
              vehicleFactory.getVehicles(vm.profileId).then(
                   function (vehicle_data) {
-                       vm.cars = vehicle_data.user.vehicle;
+                       vm.vehicles = vehicle_data.user.vehicle;
                   }
              );
-          //    vm.cars = vehicleFactory.all();
         }
 
 
-        function activeVehicle(car) {
-             var index = vm.cars.indexOf(car);
+        function activeVehicle(vehicle) {
+             var index = vm.vehicles.indexOf(vehicle);
 
-             for(i = 0; i < vm.cars.length; i++)
+             for(i = 0; i < vm.vehicles.length; i++)
              {
                   if(i != index)
                   {
-                       vm.cars[i].vehicleActiveStatus = false;
+                       vm.vehicles[i].vehicleActiveStatus = false;
                   };
              };
 
-             var vehicleStatusUpdate = {'_id' : vm.profileId, 'vehicle' : vm.cars};
+             var vehicleStatusUpdate = {'_id' : vm.profileId, 'vehicle' : vm.vehicles};
 
              vehicleFactory.activeVehicle(vehicleStatusUpdate).then();
         }
 
         function removeVehicle(vehicle) {
-             vehicleFactory.remove(vehicle).then(
+             var vehicleRemoved = {'_id' : vm.profileId, 'vehicle' : vehicle}
+
+             vehicleFactory.removeVehicle(vehicleRemoved).then(
                   function(){
-                       var index = vm.cars.indexOf(car);
-                       vm.cars.splice(index, 1);
+                       var index = vm.vehicles.indexOf(vehicle);
+                       vm.vehicles.splice(index, 1);
                   }
              );
         }

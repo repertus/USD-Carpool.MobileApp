@@ -1,24 +1,26 @@
-<ion-view view-title="Vehicles">
+<ion-view view-title="Vehicles" cache-view="false">
   <ion-nav-buttons side="right">
-    <a class="button button-icon ion-plus-round button-positive" ui-sref="tab.vehicle-detail({profileId : vm.profileId})"></a>
+    <a class="button button-icon ion-ios-plus-outline button-positive" ui-sref="tab.vehicle-detail({profileId : vm.profileId})"></a>
+    <a class="button button-icon ion-ios-minus-outline button-positive" ng-click="vm.shouldShowDelete = !vm.shouldShowDelete"></a>
   </ion-nav-buttons>
   <ion-content>
-    <ion-list>
-      <ion-item class="item item-avatar item-toggle" collection-repeat="car in vm.cars">
-        <!-- <img ng-src="{{car.vehiclePic}}" ng-if="car.vehiclePic != null"> -->
-        <i class="icon ion-model-s" ng-if="car.vehiclePic != null"></i>
-        <h2>{{car.vehicleMake}}
+    <ion-list show-delete="vm.shouldShowDelete">
+      <ion-item class="item item-avatar item-toggle" collection-repeat="vehicle in vm.vehicles">
+        <ion-delete-button class="ion-minus-circled" ng-click="vm.removeVehicle(vehicle)"></ion-delete-button>
+        <img ng-src="{{vehicle.vehiclePic}}" ng-show="vehicle.vehiclePic !== undefined">
+        <i class="icon ion-android-car" id="vehicleAvatar" ng-show="vehicle.vehiclePic === undefined || vehicle.vehiclePic === ''"></i>
+        <h2>{{vehicle.vehicleMake}}
           /
-          {{car.vehicleModel}}</h2>
-        <p ng-if="car.vehicleActiveStatus == true">Active Vehicle</p>
-        <p ng-if="car.vehicleActiveStatus == false">Inactive Vehicle</p>
+          {{vehicle.vehicleModel}}</h2>
+        <p ng-if="vehicle.vehicleActiveStatus == true">Active Vehicle</p>
+        <p ng-if="vehicle.vehicleActiveStatus == false">Inactive Vehicle</p>
         <label class="toggle">
-          <input type="checkbox" ng-model="car.vehicleActiveStatus" ng-change="vm.activeVehicle(car)">
+          <input type="checkbox" ng-model="vehicle.vehicleActiveStatus" ng-change="vm.activeVehicle(vehicle)">
           <div class="track">
             <div class="handle"></div>
           </div>
         </label>
-        <ion-option-button class="button-assertive icon ion-minus" ng-click="vm.cars.splice($index, 1)"></ion-option-button>
+        <ion-option-button class="button-assertive icon ion-minus" ng-click="vm.vehicles.splice($index, 1)"></ion-option-button>
         <ion-option-button class="button-positive icon ion-edit"></ion-option-button>
       </ion-item>
     </ion-list>

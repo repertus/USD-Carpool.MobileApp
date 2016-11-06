@@ -11,19 +11,9 @@
     function ProfileController(profileFactory, sharedDataFactory, $scope) {
         var vm = this;
 
-        //properties
-     //    vm.profileId = "58158d20f998ef47191ce743";
-
-     //Methods
-
+        //Pulls the profile data from the home tab
         $scope.$on('$ionicView.enter', function() {
              vm.profile = sharedDataFactory.getProfile();
         });
-
-     //    $scope.$on('$ionicView.enter', function() {
-     //         sharedDataFactory.onChangeData($scope, function(data){
-     //              vm.profileId = data._id;
-     //         });
-     //    });
     }
 })();

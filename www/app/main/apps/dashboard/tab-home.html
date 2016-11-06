@@ -4,8 +4,9 @@
     <div class="row" id="homeContent">
       <div id="avatarPlaceHolderCircle"></div>
       <div id="avatarPlaceHolder"></div>
-      <!-- <i class="icon ion-android-person" id="avatarImage"></i> -->
-      <i ng-show="vm.profile.picture === undefined || vm.profile.picture === ''" class="icon ion-android-person" id="avatarImage"></i>
+      <div id="avatarCircle" ng-show="vm.profile.picture === undefined || vm.profile.picture === ''">
+           <i class="icon ion-android-person" id="avatarImage"></i>
+      </div>
       <img ng-show="vm.profile.picture !== undefined" ng-src="{{vm.profile.picture}}" id="selfPicHolder">
       <div class="card" id="homeCard">
         <div class="item item-text-wrap">
