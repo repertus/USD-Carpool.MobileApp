@@ -48,13 +48,14 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
 ************************/
 #homeContent{
      height: 250px;
+     position: relative;
 }
 
 #avatarPlaceHolderCircle{
      width: 120px;
      height: 120px;
      left: 50%;
-     top: 15%;
+     top: 25%;
      position: absolute;
      transform: translate(-50%, -50%);
      border-radius: 100%;
@@ -69,7 +70,7 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
      width: 110px;
      height: 110px;
      left: 50%;
-     top: 15%;
+     top: 25%;
      position: absolute;
      transform: translate(-50%, -50%);
      border-radius: 100%;
@@ -82,7 +83,7 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
 #avatarCircle{
      position: absolute;
      z-index: 4;
-     top: 15%;
+     top: 25%;
      left: 50%;
      transform: translate(-50%, -50%);
      display: block;
@@ -106,7 +107,7 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
 #selfPicHolder {
      position: absolute;
      z-index: 4;
-     top: 15%;
+     top: 25%;
      left: 50%;
      transform: translate(-50%, -50%);
      display: block;
@@ -153,7 +154,9 @@ b, strong {
 **My Info tab page styling**
 ***************************/
 #myInfoAvatar {
-     height: 150px;
+     margin-top: 50px;
+     height: 100px;
+     position: relative;
 }
 
 /***************************
