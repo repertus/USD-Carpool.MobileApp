@@ -7,10 +7,10 @@
       <div class="item item-divider">
         Origination Point
       </div>
-      <ion-item class="item item-toggle" ng-model="vm.myStartRoute" ng-repeat="route in vm.routes">
+      <ion-item class="item item-toggle" ng-repeat="route in vm.routes">
         <p>{{route.routeName}}</p>
         <label class="toggle">
-          <input type="checkbox">
+          <input type="checkbox" ng-model="route.myStartRoute" ng-change="vm.calculateAndDisplayRoute(route, vm.directionsService, vm.directionsDisplay)">
           <div class="track">
             <div class="handle"></div>
           </div>
