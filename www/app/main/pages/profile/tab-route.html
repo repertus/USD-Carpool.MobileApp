@@ -1,11 +1,36 @@
 <ion-view view-title="Routes">
   <ion-content>
-       <div id="map" data-tap-disabled="true"></div>
-
-
-    <ion-list>
+    <div id="map" data-tap-disabled="true"></div>
+    <div class="list card">
       <div class="item item-divider">
         Origination Point
+      </div>
+      <div class="item item-button-right">
+        <p>{{vm.originationRoute.routeName}}</p>
+        <button class="button button-stable">
+          <i class="icon ion-edit"></i>
+        </button>
+      </div>
+    </div>
+    <div class="list card">
+      <div class="item item-divider">
+        Return Point
+      </div>
+      <div class="item item-button-right">
+        Origination Point
+        <button class="button button-stable">
+          <i class="icon ion-edit"></i>
+        </button>
+      </div>
+    </div>
+
+    <ion-list>
+      <div class="item item-divider item-button-right">
+        Origination Point
+        <button class="button button-stable">
+          <i class="icon ion-edit"></i>
+        </button>
+
       </div>
       <ion-item class="item item-toggle" ng-repeat="route in vm.routes">
         <p>{{route.routeName}}</p>
@@ -18,7 +43,10 @@
       </ion-item>
     </ion-list>
     <ion-list>
-      <div class="item item-divider">
+      <div class="item item-divider item-button-right">
+        <button class="button button-stable">
+          <i class="icon ion-edit"></i>
+        </button>
         Return Point
       </div>
       <ion-item class="item item-toggle" ng-repeat="route in vm.routes">
@@ -32,4 +60,25 @@
       </ion-item>
     </ion-list>
   </ion-content>
+
+  <script id="origination-route.html" type="text/ng-template">
+    <ion-modal-view>
+      <ion-header-bar>
+        <h1 class="title">Origination Routes</h1>
+      </ion-header-bar>
+      <ion-content>
+        <ion-list>
+          <ion-item class="item item-toggle" ng-repeat="route in vm.routes">
+            <p>{{route.routeName}}</p>
+            <label class="toggle">
+              <input type="checkbox" ng-model="route.myStartRoute" ng-change="vm.calculateAndDisplayRoute(route, vm.directionsService, vm.directionsDisplay)">
+              <div class="track">
+                <div class="handle"></div>
+              </div>
+            </label>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-modal-view>
+  </script>
 </ion-view>

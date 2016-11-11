@@ -5,10 +5,10 @@
     .module('app')
     .controller('TripRouteController', TripRouteController);
 
-  TripRouteController.$inject = ['tripRoutesFactory', '$q', 'toastr', '$scope'];
+  TripRouteController.$inject = ['tripRoutesFactory', 'sharedDataFactory', '$q', 'toastr', '$scope', '$ionicModal', '$stateParams'];
 
   /* @ngInject */
-  function TripRouteController(tripRoutesFactory, $q, toastr, $scope) {
+  function TripRouteController(tripRoutesFactory, sharedDataFactory, $q, toastr, $scope, $ionicModal, $stateParams) {
     var vm = this;
 
     //Properties
@@ -18,15 +18,13 @@
 
     //Methods
     vm.calculateAndDisplayRoute = calculateAndDisplayRoute;
+    vm.profileId = $stateParams.profileId;
 
     activate();
 
     function activate() {
 
-         //Renders the Google maps on the Route settings screen
-
-
-
+      //Renders the Google maps on the Route settings screen
       var mapOptions = {
         center: myLatlng,
         zoom: 11,
@@ -43,44 +41,57 @@
           vm.routes = data.routes;
         }
       );
-
-      //  google.maps.event.addDomListener(window, 'load', function() {
-      //    var myLatlng = new google.maps.LatLng(37.3000, -120.4833);
-      //
-      //    var mapOptions = {
-      //      center: myLatlng,
-      //      zoom: 13,
-      //      mapTypeId: google.maps.MapTypeId.ROADMAP
-      //    };
-      //
-      //    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-      //
-      //    navigator.geolocation.getCurrentPosition(function(pos) {
-      //      map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-      //      var myLocation = new google.maps.Marker({
-      //        position: new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
-      //        map: map,
-      //        title: "My Location"
-      //      });
-      //    });
-      //
-      //    $scope.map = map;
-      //  });
     }
 
-    function calculateAndDisplayRoute(route, directionsService, directionsDisplay)
-    {
-         directionsService.route({
-          origin: {lat: route.routeStartLat, lng: route.routeStartLong},
-          destination: {lat: route.routeEndLat, lng: route.routeEndLong},
-          travelMode: 'DRIVING'
-        }, function(response, status) {
-          if (status === 'OK') {
-            directionsDisplay.setDirections(response);
-          } else {
-            window.alert('Directions request failed due to ' + status);
-          }
-        });
+    //Displays the routes on the Google Maps screen
+    function calculateAndDisplayRoute(route, directionsService, directionsDisplay) {
+      directionsService.route({
+        origin: {
+          lat: route.routeStartLat,
+          lng: route.routeStartLong
+        },
+        destination: {
+          lat: route.routeEndLat,
+          lng: route.routeEndLong
+        },
+        travelMode: 'DRIVING'
+      }, function(response, status) {
+        if (status === 'OK') {
+          directionsDisplay.setDirections(response);
+        } else {
+          window.alert('Directions request failed due to ' + status);
+        }
+      });
     }
+
+    $ionicModal.fromTemplateUrl('origination-route.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.modal = modal;
+    });
+
+
+    $scope.closeModal = function() {
+      $scope.modal.hide();
+    };
+    // Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function() {
+      $scope.modal.remove();
+    });
+
+    //Pulls the profile data from the home tab
+    $scope.$on('$ionicView.enter', function() {
+      vm.profile = sharedDataFactory.getProfile();
+      var driver = vm.profile.driver;
+      var originationId = driver[0].originationId;
+
+      tripRoutesFactory.getByRouteId(originationId).then(
+           function (originationRoute) {
+                vm.originationRoute = originationRoute.route;
+           }
+      );
+    });
+
   }
 })();
