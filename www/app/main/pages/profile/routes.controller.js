@@ -85,10 +85,17 @@
       vm.profile = sharedDataFactory.getProfile();
       var driver = vm.profile.driver;
       var originationId = driver[0].originationId;
+      var returnId = driver[0].returnId;
 
       tripRoutesFactory.getByRouteId(originationId).then(
            function (originationRoute) {
                 vm.originationRoute = originationRoute.route;
+           }
+      );
+
+      tripRoutesFactory.getByRouteId(returnId).then(
+           function (returnRoute) {
+                vm.returnRoute = returnRoute.route;
            }
       );
     });
