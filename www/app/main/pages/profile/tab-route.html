@@ -1,6 +1,7 @@
-<ion-view view-title="Routes">
+<ion-view view-title="My Routes">
+
   <ion-content>
-    <div id="map" data-tap-disabled="true"></div>
+    <!-- Render the cards for user origination and return routes -->
     <div class="list card">
       <div class="item item-divider">
         Origination Point
@@ -27,75 +28,46 @@
         </button>
       </div>
     </div>
-
-    <ion-list>
-      <div class="item item-divider item-button-right">
-        Origination Point
-        <button class="button button-stable">
-          <i class="icon ion-edit"></i>
-        </button>
-      </div>
-      <ion-item class="item item-toggle" ng-repeat="route in vm.routes">
-        <p>{{route.routeName}}</p>
-        <label class="toggle">
-          <input type="checkbox" ng-model="route.myStartRoute" ng-change="vm.calculateAndDisplayRoute(route, vm.directionsService, vm.directionsDisplay)">
-          <div class="track">
-            <div class="handle"></div>
-          </div>
-        </label>
-      </ion-item>
-    </ion-list>
-    <ion-list>
-      <div class="item item-divider item-button-right">
-        <button class="button button-stable">
-          <i class="icon ion-edit"></i>
-        </button>
-        Return Point
-      </div>
-      <ion-item class="item item-toggle" ng-repeat="route in vm.routes">
-        <p>{{route.routeName}}</p>
-        <label class="toggle">
-          <input type="checkbox">
-          <div class="track">
-            <div class="handle"></div>
-          </div>
-        </label>
-      </ion-item>
-    </ion-list>
   </ion-content>
 
-  <!--Modal 1-->
-<script id="origination-route.html" type="text/ng-template">
-  <ion-modal-view>
-    <ion-header-bar>
-      <h1 class="title">Origination Routes</h1>
-      <div class="buttons">
-        <button class="button button-icon ion-android-search" ng-click="vm.showFilterBar()"></button>
-      </div>
-    </ion-header-bar>
-    <ion-content>
-      <ion-list>
-        <ion-item class="item item-toggle" ng-repeat="route in vm.routes | orderBy: 'routeName'" ng-show="route.originationTrip == true">
-          <p>{{route.routeName}}</p>
-          <label class="toggle">
-            <input type="checkbox" ng-model="route.myStartRoute" ng-change="vm.calculateAndDisplayRoute(route, vm.directionsService, vm.directionsDisplay)">
-            <div class="track">
-              <div class="handle"></div>
-            </div>
-          </label>
-        </ion-item>
-      </ion-list>
-    </ion-content>
-  </ion-modal-view>
-</script>
+  <!--Modal 1 - Origination route-->
+  <script id="origination-route.html" type="text/ng-template">
+    <ion-modal-view>
+      <ion-header-bar>
+        <h1 class="title">Origination Routes</h1>
+        <div class="buttons">
+          <button class="button button-icon ion-android-search" ng-click="vm.showFilterBar()"></button>
+        </div>
+      </ion-header-bar>
+      <ion-content>
+        <!-- Renders the google maps screen on the route modal page -->
+        <div id="map" data-tap-disabled="true"></div>
+        <!-- Render the list of all available origination routes -->
+        <ion-list>
+          <ion-item class="item item-toggle" ng-repeat="route in vm.routes | orderBy: 'routeName'" ng-show="route.originationTrip == true">
+            <p>{{route.routeName}}</p>
+            <label class="toggle">
+              <input type="checkbox" ng-model="route.myStartRoute" ng-change="vm.calculateAndDisplayRoute(route, vm.directionsService, vm.directionsDisplay); vm.activeOriginationRoute(route)">
+              <div class="track">
+                <div class="handle"></div>
+              </div>
+            </label>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-modal-view>
+  </script>
 
-  <!--Modal 2-->
+  <!--Modal 2 - Return route-->
   <script id="return-route.html" type="text/ng-template">
     <ion-modal-view>
       <ion-header-bar>
         <h1 class="title">Return Routes</h1>
       </ion-header-bar>
       <ion-content>
+        <!-- Renders the google maps screen on the route modal page -->
+        <div id="map" data-tap-disabled="true"></div>
+        <!-- Render the list of all available origination routes -->
         <ion-list>
           <ion-item class="item item-toggle" ng-repeat="route in vm.routes | orderBy: 'routeName'" ng-show="route.originationTrip == false">
             <p>{{route.routeName}}</p>

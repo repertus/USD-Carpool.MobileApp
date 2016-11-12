@@ -219,3 +219,8 @@ b, strong {
 .button.button-clear {
      color: #fff;
 }
+
+/*fixes cancel bug related to the search bar within the modal*/
+.filter-bar-open.modal-open {
+    pointer-events: auto
+}
