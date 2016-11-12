@@ -197,3 +197,25 @@ b, strong {
     width: 100%;
     height: 50%;
 }
+
+/*********************************
+**Routes modal rendering screens**
+*********************************/
+.bar-header {
+     background-color: #003B70;
+     border-bottom: 3px solid #69A7CC;
+}
+
+.bar-header .title {
+     color: #fff;
+}
+
+.bar .button.button-icon,
+.bar .button.button-icon {
+     color: #fff;
+}
+
+.bar-stable
+.button.button-clear {
+     color: #fff;
+}

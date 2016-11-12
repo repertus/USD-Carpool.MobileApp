@@ -5,20 +5,25 @@
     .module('app')
     .controller('TripRouteController', TripRouteController);
 
-  TripRouteController.$inject = ['tripRoutesFactory', 'sharedDataFactory', '$q', 'toastr', '$scope', '$ionicModal', '$stateParams'];
+  TripRouteController.$inject = ['tripRoutesFactory', 'sharedDataFactory', '$q', 'toastr', '$scope', '$ionicModal', '$ionicFilterBar', '$stateParams'];
 
   /* @ngInject */
-  function TripRouteController(tripRoutesFactory, sharedDataFactory, $q, toastr, $scope, $ionicModal, $stateParams) {
+  function TripRouteController(tripRoutesFactory, sharedDataFactory, $q, toastr, $scope, $ionicModal, $ionicFilterBar, $stateParams) {
     var vm = this;
 
     //Properties
     vm.directionsService = new google.maps.DirectionsService;
     vm.directionsDisplay = new google.maps.DirectionsRenderer;
+    var filterBarInstance;
     var myLatlng = new google.maps.LatLng(32.771952, -117.188150);
 
     //Methods
     vm.calculateAndDisplayRoute = calculateAndDisplayRoute;
+    vm.openModal = openModal;
     vm.profileId = $stateParams.profileId;
+    vm.showFilterBar = showFilterBar;
+
+    /////////////////////////////////////////////////////////////////
 
     activate();
 
@@ -64,13 +69,39 @@
       });
     }
 
+    //Filters routes through the search bar in the modal per user input
+    function showFilterBar() {
+      filterBarInstance = $ionicFilterBar.show({
+        items: vm.routes,
+        update: function (filteredItems) {
+          vm.routes = filteredItems;
+        },
+        filterProperties: 'routeName'
+      });
+    };
+
+    // Modal 1 - Origination routes list
     $ionicModal.fromTemplateUrl('origination-route.html', {
+         id: '1',
       scope: $scope,
       animation: 'slide-in-up'
     }).then(function(modal) {
-      $scope.modal = modal;
+      $scope.oModal1 = modal;
     });
 
+    // Modal 2 - Return routes list
+    $ionicModal.fromTemplateUrl('return-route.html', {
+         id: '2',
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.oModal2 = modal;
+    });
+
+    function openModal(index) {
+      if (index == 1) $scope.oModal1.show();
+      else $scope.oModal2.show();
+    };
 
     $scope.closeModal = function() {
       $scope.modal.hide();

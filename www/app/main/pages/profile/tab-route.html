@@ -6,8 +6,10 @@
         Origination Point
       </div>
       <div class="item item-button-right">
-        <p>{{vm.originationRoute.routeName}}</p>
-        <button class="button button-stable">
+        <a ng-click="vm.calculateAndDisplayRoute(vm.originationRoute, vm.directionsService, vm.directionsDisplay)">
+          <p>{{vm.originationRoute.routeName}}</p>
+        </a>
+        <button class="button button-stable" ng-click="vm.openModal(1)">
           <i class="icon ion-edit"></i>
         </button>
       </div>
@@ -17,8 +19,10 @@
         Return Point
       </div>
       <div class="item item-button-right">
-        <p>{{vm.returnRoute.routeName}}</p>
-        <button class="button button-stable">
+        <a ng-click="vm.calculateAndDisplayRoute(vm.returnRoute, vm.directionsService, vm.directionsDisplay)">
+          <p>{{vm.returnRoute.routeName}}</p>
+        </a>
+        <button class="button button-stable" ng-click="vm.openModal(2)">
           <i class="icon ion-edit"></i>
         </button>
       </div>
@@ -30,7 +34,6 @@
         <button class="button button-stable">
           <i class="icon ion-edit"></i>
         </button>
-
       </div>
       <ion-item class="item item-toggle" ng-repeat="route in vm.routes">
         <p>{{route.routeName}}</p>
@@ -61,14 +64,40 @@
     </ion-list>
   </ion-content>
 
-  <script id="origination-route.html" type="text/ng-template">
+  <!--Modal 1-->
+<script id="origination-route.html" type="text/ng-template">
+  <ion-modal-view>
+    <ion-header-bar>
+      <h1 class="title">Origination Routes</h1>
+      <div class="buttons">
+        <button class="button button-icon ion-android-search" ng-click="vm.showFilterBar()"></button>
+      </div>
+    </ion-header-bar>
+    <ion-content>
+      <ion-list>
+        <ion-item class="item item-toggle" ng-repeat="route in vm.routes | orderBy: 'routeName'" ng-show="route.originationTrip == true">
+          <p>{{route.routeName}}</p>
+          <label class="toggle">
+            <input type="checkbox" ng-model="route.myStartRoute" ng-change="vm.calculateAndDisplayRoute(route, vm.directionsService, vm.directionsDisplay)">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-modal-view>
+</script>
+
+  <!--Modal 2-->
+  <script id="return-route.html" type="text/ng-template">
     <ion-modal-view>
       <ion-header-bar>
-        <h1 class="title">Origination Routes</h1>
+        <h1 class="title">Return Routes</h1>
       </ion-header-bar>
       <ion-content>
         <ion-list>
-          <ion-item class="item item-toggle" ng-repeat="route in vm.routes">
+          <ion-item class="item item-toggle" ng-repeat="route in vm.routes | orderBy: 'routeName'" ng-show="route.originationTrip == false">
             <p>{{route.routeName}}</p>
             <label class="toggle">
               <input type="checkbox" ng-model="route.myStartRoute" ng-change="vm.calculateAndDisplayRoute(route, vm.directionsService, vm.directionsDisplay)">
@@ -81,4 +110,5 @@
       </ion-content>
     </ion-modal-view>
   </script>
+
 </ion-view>

@@ -5,6 +5,7 @@
         .module('app', [
             'ionic',
             'toastr',
-            'ngCordova'
+            'ngCordova',
+            'jett.ionic.filter.bar'
         ]);
 })();
