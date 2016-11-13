@@ -224,3 +224,9 @@ b, strong {
 .filter-bar-open.modal-open {
     pointer-events: auto
 }
+
+.item-divider {
+     color: #fff;
+     background-color: #003B70;
+     border-top: 4px solid #69A7CC;
+}

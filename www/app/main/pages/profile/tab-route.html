@@ -34,9 +34,12 @@
   <script id="origination-route.html" type="text/ng-template">
     <ion-modal-view>
       <ion-header-bar>
-        <h1 class="title">Origination Routes</h1>
+        <h1 class="title">Routes</h1>
         <div class="buttons">
-          <button class="button button-icon ion-android-search" ng-click="vm.showFilterBar()"></button>
+          <button class="button button-icon ion-ios-search" ng-click="vm.showFilterBar()"></button>
+        </div>
+        <div class="buttons">
+          <button class="button button-icon ion-ios-checkmark-outline" ng-click="vm.closeModal(1)"></button>
         </div>
       </ion-header-bar>
       <ion-content>
@@ -44,6 +47,9 @@
         <div id="map" data-tap-disabled="true"></div>
         <!-- Render the list of all available origination routes -->
         <ion-list>
+          <div class="item item-divider">
+            Origination Point
+          </div>
           <ion-item class="item item-toggle" ng-repeat="route in vm.routes | orderBy: 'routeName'" ng-show="route.originationTrip == true">
             <p>{{route.routeName}}</p>
             <label class="toggle">
@@ -62,13 +68,22 @@
   <script id="return-route.html" type="text/ng-template">
     <ion-modal-view>
       <ion-header-bar>
-        <h1 class="title">Return Routes</h1>
+        <h1 class="title">Routes</h1>
+        <div class="buttons">
+          <button class="button button-icon ion-ios-search" ng-click="vm.showFilterBar()"></button>
+        </div>
+        <div class="buttons">
+          <button class="button button-icon ion-ios-checkmark-outline" ng-click="vm.closeModal(2)"></button>
+        </div>
       </ion-header-bar>
       <ion-content>
         <!-- Renders the google maps screen on the route modal page -->
         <div id="map" data-tap-disabled="true"></div>
         <!-- Render the list of all available origination routes -->
         <ion-list>
+          <div class="item item-divider">
+            Return Point
+          </div>
           <ion-item class="item item-toggle" ng-repeat="route in vm.routes | orderBy: 'routeName'" ng-show="route.originationTrip == false">
             <p>{{route.routeName}}</p>
             <label class="toggle">

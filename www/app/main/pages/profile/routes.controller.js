@@ -19,6 +19,7 @@
     //Methods
     vm.activeOriginationRoute = activeOriginationRoute;
     vm.calculateAndDisplayRoute = calculateAndDisplayRoute;
+    vm.closeModal = closeModal;
     vm.directionsService = new google.maps.DirectionsService;
     vm.directionsDisplay = new google.maps.DirectionsRenderer;
     vm.openModal = openModal;
@@ -122,12 +123,17 @@
       googleMaps();
     };
 
-    $scope.closeModal = function() {
-      $scope.modal.hide();
+    function closeModal(index) {
+      if (index == 1) $scope.oModal1.hide();
+      else $scope.oModal2.hide();
+      vm.map.remove();
     };
+
     // Cleanup the modal when we're done with it!
     $scope.$on('$destroy', function() {
-      $scope.modal.remove();
+      console.log('Destroying modals...');
+      $scope.oModal1.remove();
+      $scope.oModal2.remove();
     });
 
     //Pulls the profile data from the home tab
