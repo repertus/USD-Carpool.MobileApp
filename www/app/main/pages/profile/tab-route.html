@@ -7,10 +7,8 @@
         Origination Point
       </div>
       <div class="item item-button-right">
-        <a ng-click="vm.calculateAndDisplayRoute(vm.originationRoute, vm.directionsService, vm.directionsDisplay)">
           <p>{{vm.originationRoute.routeName}}</p>
-        </a>
-        <button class="button button-stable" ng-click="vm.openModal(1)">
+        <button class="button button-stable" ng-click="vm.openModal(1); vm.status = true">
           <i class="icon ion-edit"></i>
         </button>
       </div>
@@ -20,17 +18,16 @@
         Return Point
       </div>
       <div class="item item-button-right">
-        <a ng-click="vm.calculateAndDisplayRoute(vm.returnRoute, vm.directionsService, vm.directionsDisplay)">
           <p>{{vm.returnRoute.routeName}}</p>
-        </a>
-        <button class="button button-stable" ng-click="vm.openModal(2)">
+        <button class="button button-stable" ng-click="vm.openModal(2); vm.status = false">
           <i class="icon ion-edit"></i>
         </button>
       </div>
     </div>
   </ion-content>
 
-  <!--Modal 1 - Origination route-->
+
+  <!--Modal-->
   <script id="origination-route.html" type="text/ng-template">
     <ion-modal-view>
       <ion-header-bar>
@@ -39,7 +36,7 @@
           <button class="button button-icon ion-ios-search" ng-click="vm.showFilterBar()"></button>
         </div>
         <div class="buttons">
-          <button class="button button-icon ion-ios-checkmark-outline" ng-click="vm.closeModal(1)"></button>
+          <button class="button button-icon ion-ios-checkmark-outline" ng-click="vm.closeModal()"></button>
         </div>
       </ion-header-bar>
       <ion-content>
@@ -47,47 +44,21 @@
         <div id="map" data-tap-disabled="true"></div>
         <!-- Render the list of all available origination routes -->
         <ion-list>
-          <div class="item item-divider">
+          <div class="item item-divider" ng-show="vm.status == true">
             Origination Point
           </div>
-          <ion-item class="item item-toggle" ng-repeat="route in vm.routes | orderBy: 'routeName'" ng-show="route.originationTrip == true">
-            <p>{{route.routeName}}</p>
-            <label class="toggle">
-              <input type="checkbox" ng-model="route.myStartRoute" ng-change="vm.calculateAndDisplayRoute(route, vm.directionsService, vm.directionsDisplay); vm.activeOriginationRoute(route)">
-              <div class="track">
-                <div class="handle"></div>
-              </div>
-            </label>
-          </ion-item>
-        </ion-list>
-      </ion-content>
-    </ion-modal-view>
-  </script>
-
-  <!--Modal 2 - Return route-->
-  <script id="return-route.html" type="text/ng-template">
-    <ion-modal-view>
-      <ion-header-bar>
-        <h1 class="title">Routes</h1>
-        <div class="buttons">
-          <button class="button button-icon ion-ios-search" ng-click="vm.showFilterBar()"></button>
-        </div>
-        <div class="buttons">
-          <button class="button button-icon ion-ios-checkmark-outline" ng-click="vm.closeModal(2)"></button>
-        </div>
-      </ion-header-bar>
-      <ion-content>
-        <!-- Renders the google maps screen on the route modal page -->
-        <div id="map" data-tap-disabled="true"></div>
-        <!-- Render the list of all available origination routes -->
-        <ion-list>
-          <div class="item item-divider">
+          <div class="item item-divider" ng-show="vm.status != true">
             Return Point
           </div>
-          <ion-item class="item item-toggle" ng-repeat="route in vm.routes | orderBy: 'routeName'" ng-show="route.originationTrip == false">
+          <ion-item
+               class="item item-toggle" ng-repeat="route in vm.routes | orderBy: 'routeName'"
+               ng-show="route.originationTrip == vm.status">
             <p>{{route.routeName}}</p>
             <label class="toggle">
-              <input type="checkbox" ng-model="route.myStartRoute" ng-change="vm.calculateAndDisplayRoute(route, vm.directionsService, vm.directionsDisplay)">
+              <input
+               type="checkbox"
+               ng-model="route.myStartRoute"
+               ng-change="vm.calculateAndDisplayRoute(route, vm.directionsService, vm.directionsDisplay); vm.activeRoute(route)">
               <div class="track">
                 <div class="handle"></div>
               </div>
