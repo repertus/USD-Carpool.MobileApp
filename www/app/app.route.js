@@ -58,6 +58,15 @@
                     }
                }
           })
+          .state('tab.pickup', {
+               url: '/pickup/:profileId',
+               views: {
+                    'tab-profile': {
+                         templateUrl: 'app/main/pages/profile/tab-pickup.html',
+                         controller: 'TripPickupController as vm'
+                    }
+               }
+          })
           .state('tab.vehicle-grid', {
                url: '/vehicle/:profileId',
                views: {

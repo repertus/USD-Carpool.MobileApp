@@ -1,13 +1,13 @@
-<ion-view view-title="My Routes">
+<ion-view view-title="My Pickup Points">
 
   <ion-content>
-    <!-- Render the cards for user origination and return routes -->
+    <!-- Render the cards for user origination and return pickup points -->
     <div class="list card">
       <div class="item item-divider">
-        Origination Route
+        Origination Point
       </div>
       <div class="item item-button-right">
-          <p>{{vm.originationRoute.routeName}}</p>
+          <p>{{vm.originationPickupName}}</p>
         <button class="button button-stable" ng-click="vm.openModal(1); vm.status = true">
           <i class="icon ion-edit"></i>
         </button>
@@ -15,10 +15,10 @@
     </div>
     <div class="list card">
       <div class="item item-divider">
-        Return Route
+        Return Point
       </div>
       <div class="item item-button-right">
-          <p>{{vm.returnRoute.routeName}}</p>
+          <p>{{vm.returnPickupName}}</p>
         <button class="button button-stable" ng-click="vm.openModal(2); vm.status = false">
           <i class="icon ion-edit"></i>
         </button>
@@ -31,7 +31,7 @@
   <script id="origination-route.html" type="text/ng-template">
     <ion-modal-view>
       <ion-header-bar>
-        <h1 class="title">Routes</h1>
+        <h1 class="title">Pickups</h1>
         <div class="buttons">
           <button class="button button-icon ion-ios-search" ng-click="vm.showFilterBar()"></button>
         </div>
@@ -42,22 +42,20 @@
       <ion-content>
         <!-- Renders the google maps screen on the route modal page -->
         <div id="map" data-tap-disabled="true"></div>
-        <!-- Render the list of all available origination routes -->
+        <!-- Render the list of all available origination/return pickup points -->
         <ion-list>
           <div class="item item-divider" ng-show="vm.status == true">
-            Origination Route
+            Origination Point
           </div>
           <div class="item item-divider" ng-show="vm.status != true">
-            Return Route
+            Return Point
           </div>
-          <ion-item
-               class="item item-toggle" ng-repeat="route in vm.routes | orderBy: 'routeName'"
-               ng-show="route.originationTrip == vm.status">
-            <p>{{route.routeName}}</p>
+          <ion-item class="item item-toggle" ng-repeat="pickup in vm.pickups | orderBy: 'locationName'">
+            <p>{{pickup.locationName}}</p>
             <label class="toggle">
               <input
                type="checkbox"
-               ng-model="route.myStartRoute"
+               ng-model="pickup.myStartRoute"
                ng-change="vm.calculateAndDisplayRoute(route, vm.directionsService, vm.directionsDisplay); vm.activeRoute(route)">
               <div class="track">
                 <div class="handle"></div>

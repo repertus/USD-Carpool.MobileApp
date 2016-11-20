@@ -1,17 +1,20 @@
 <ion-view view-title="Profile">
   <ion-content class="padding">
-       <br>
-       <a class="button button-block button-stable icon-left ion-lock-combination">
-            User / Password Reset
-       </a>
-       <a class="button button-block button-stable icon-left ion-person" href="#/tab/myinfo/{{vm.profile._id}}">
-            My Info
-       </a>
-       <a class="button button-block button-stable icon-left ion-map" href="#/tab/route/{{vm.profile._id}}">
-            My Routes
-       </a>
-       <a class="button button-block button-stable icon-left ion-model-s" href="#/tab/vehicle/{{vm.profile._id}}">
-            Vehicles
-       </a>
-</ion-content>
+    <br>
+    <a class="button button-block button-stable icon-left ion-lock-combination">
+      User / Password Reset
+    </a>
+    <a class="button button-block button-stable icon-left ion-person" href="#/tab/myinfo/{{vm.profile._id}}">
+      My Info
+    </a>
+    <a ng-if="vm.driver[0].driverRole == true" class="button button-block button-stable icon-left ion-map" href="#/tab/route/{{vm.profile._id}}">
+      My Routes
+    </a>
+    <a ng-if="vm.driver[0].driverRole != true" class="button button-block button-stable icon-left ion-map" href="#/tab/pickup/{{vm.profile._id}}">
+      My Pickup Points
+    </a>
+    <a ng-if="vm.driver[0].driverRole == true" class="button button-block button-stable icon-left ion-model-s" href="#/tab/vehicle/{{vm.profile._id}}">
+      Vehicles
+    </a>
+  </ion-content>
 </ion-view>

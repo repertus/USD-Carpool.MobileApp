@@ -29,7 +29,7 @@
 
     /////////////////////////////////////////////////////////////////
 
-    //Sets the user driver route per selection
+    //Sets the user driver route per selection and insures only one route is active
     function activeRoute(route) {
       var index = vm.routes.indexOf(route);
 
@@ -143,7 +143,7 @@
       $scope.oModal.remove();
     });
 
-    $scope.$on('$ionicView.enter', function() {
+    $scope.$on('$ionicView.beforeEnter', function() {
       //Calls the carpool routes from the server through the factory
       tripRoutesFactory.getAllRoutes().then(
         function(data) {
@@ -151,7 +151,9 @@
 
           //Pulls the profile data from the home tab
           vm.profile = sharedDataFactory.getProfile();
+
           var driver = vm.profile.driver;
+          vm.driverRole = driver[0].driverRole;
           vm.originationId = driver[0].originationId;
           vm.returnId = driver[0].returnId;
 
@@ -168,9 +170,9 @@
               vm.returnRoute = returnRoute.route;
             }
           );
-        }
-      );
-    });
 
+
+        });
+    });
   }
 })();
