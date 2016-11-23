@@ -1,5 +1,16 @@
 <ion-view view-title="My Info">
+  <ion-nav-buttons side="right">
+    <a class="button button-icon ion-camera button-positive" ng-click="vm.selfPictureUpdate()"></a>
+  </ion-nav-buttons>
   <ion-content>
+    <div class="row" id="myInfoAvatar">
+      <div id="avatarPlaceHolderCircle"></div>
+      <div id="avatarPlaceHolder"></div>
+      <div id="avatarCircle" ng-show="vm.selfPic === undefined || vm.selfPic === ''">
+           <i  class="icon ion-android-person" id="avatarImage"></i>
+      </div>
+      <img ng-show="vm.selfPic !== undefined" ng-src="{{vm.selfPic}}" id="selfPicHolder">
+    </div>
     <div class="list">
       <label class="item item-input">
         <span class="input-label">First Name</span>
@@ -21,8 +32,6 @@
         <span class="input-label">School</span>
         <input type="text" ng-model="vm.profile.school">
       </label>
-      <br>
-      <br>
       <div class="row">
         <div class="col-10"></div>
         <div class="col-80">

@@ -1,6 +1,17 @@
 <ion-view view-title="Vehicle Info">
+  <ion-nav-buttons side="right">
+    <a class="button button-icon ion-camera button-positive" ng-click="vm.addVehiclePicture()"></a>
+  </ion-nav-buttons>
   <ion-content>
-    <div class="list">
+    <div class="row" id="myInfoAvatar">
+      <div id="avatarPlaceHolderCircle"></div>
+      <div id="avatarPlaceHolder"></div>
+      <div ng-show="vm.userVehicle.vehicle.vehiclePic === undefined || vm.userVehicle.vehicle.vehiclePic === ''" id="avatarCircle">
+        <i class="icon ion-android-car" id="avatarImage"></i>
+      </div>
+      <img ng-show="vm.userVehicle.vehicle.vehiclePic !== undefined" src="{{vm.userVehicle.vehicle.vehiclePic}}" id="selfPicHolder">
+    </div>
+    <div class="list" ng-init="vm.userVehicle.vehicle.vehicleActiveStatus = false">
       <label class="item item-input">
         <span class="input-label">Make</span>
         <input type="text" ng-model="vm.userVehicle.vehicle.vehicleMake">
@@ -31,13 +42,10 @@
     <br>
     <div class="row">
       <div class="col col-80 col-offset-10">
-        <a class="button button-block button-stable icon-left ion-plus" ng-click="vm.updateVehicle()">
+        <a class="button button-block button-stable icon-left ion-plus" ng-click="vm.addVehicle()">
           Add Vehicle
         </a>
       </div>
     </div>
-<pre>
-     {{vm.userVehicle | json}}
-</pre>
   </ion-content>
 </ion-view>

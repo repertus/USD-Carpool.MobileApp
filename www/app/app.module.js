@@ -4,6 +4,8 @@
     angular
         .module('app', [
             'ionic',
-            'toastr'
+            'toastr',
+            'ngCordova',
+            'jett.ionic.filter.bar'
         ]);
 })();

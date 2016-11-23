@@ -11,9 +11,9 @@
     function vehicleFactory($http, $q, toastr, apiUrl) {
         var service = {
              activeVehicle: activeVehicle,
+             addVehicle: addVehicle,
             getVehicles: getVehicles,
-            removeVehicle: removeVehicle,
-            updateVehicle: updateVehicle
+            removeVehicle: removeVehicle
         };
 
         return service;
@@ -29,6 +29,23 @@
                        function(error) {
                             defer.reject(error);
                             toastr.error('Error updating vehicle', 'Error');
+                       }
+                  );
+
+                  return defer.promise;
+        }
+
+        function addVehicle(userVehicle) {
+            var defer = $q.defer();
+
+            $http.post(apiUrl + '/vehicles/' + userVehicle._id, userVehicle)
+                  .then(
+                       function() {
+                            defer.resolve();
+                       },
+                       function(error) {
+                            defer.reject(error);
+                            toastr.error('Error updating item', 'Error');
                        }
                   );
 
@@ -55,7 +72,7 @@
         function removeVehicle(vehicle) {
              var defer = $q.defer();
 
-             $http.delete(apiUrl + '/vehicles/' + vehicle._id)
+             $http.put(apiUrl + '/vehicles/' + vehicle._id, vehicle)
                   .then(
                        function(response) {
                             defer.resolve(response.data);
@@ -67,23 +84,6 @@
                   );
 
              return defer.promise;
-         }
-
-         function updateVehicle(userVehicle) {
-             var defer = $q.defer();
-
-              $http.post(apiUrl + '/vehicles/' + userVehicle._id, userVehicle)
-                   .then(
-                        function() {
-                             defer.resolve();
-                        },
-                        function(error) {
-                             defer.reject(error);
-                             toastr.error('Error updating item', 'Error');
-                        }
-                   );
-
-                   return defer.promise;
          }
     }
 })();

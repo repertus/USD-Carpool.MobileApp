@@ -40,7 +40,7 @@
               .then(
                    function() {
                         defer.resolve();
-                        toastr.success('Successfully updated item', 'Saved');
+                        toastr.success('Successfully updated profile', 'Saved');
                    },
                    function(error) {
                         defer.reject(error);

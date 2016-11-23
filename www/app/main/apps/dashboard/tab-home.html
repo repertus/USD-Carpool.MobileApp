@@ -4,19 +4,22 @@
     <div class="row" id="homeContent">
       <div id="avatarPlaceHolderCircle"></div>
       <div id="avatarPlaceHolder"></div>
-      <i class="icon ion-android-person" id="avatarImage"></i>
+      <div id="avatarCircle" ng-show="vm.profile.picture === undefined || vm.profile.picture === ''">
+           <i class="icon ion-android-person" id="avatarImage"></i>
+      </div>
+      <img ng-show="vm.profile.picture !== undefined" ng-src="{{vm.profile.picture}}" id="selfPicHolder">
       <div class="card" id="homeCard">
         <div class="item item-text-wrap">
           <br>
           <br>
           <br>
-          <div>
+          <div id="welcomeMessage">
             <strong>Welcome
               {{vm.profile.firstName}}
               {{vm.profile.lastName}}!</strong>
           </div>
           <br>
-          <div>
+          <div class="col col-75 col-offset-10">
             <p class="homeTab">
               So far you have avoided 14 miles of driving!
             </p>
@@ -41,7 +44,6 @@
         </div>
       </div>
     </div>
-    <br>
     <button class="button button-block button-positive">
       Add New Trip
     </button>

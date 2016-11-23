@@ -3,51 +3,50 @@
 
     angular
         .module('app')
-        .factory('tripRoutesFactory', tripRoutesFactory);
+        .factory('driverFactory', driverFactory);
 
-    tripRoutesFactory.$inject = ['$http', '$q', 'toastr', 'apiUrl'];
+    driverFactory.$inject = ['$http', '$q', 'toastr', 'apiUrl'];
 
     /* @ngInject */
-    function tripRoutesFactory($http, $q, toastr, apiUrl) {
+    function driverFactory($http, $q, toastr, apiUrl) {
         var service = {
-            getAllRoutes: getAllRoutes,
-            getByRouteId: getByRouteId
+            activeDriverRoute: activeDriverRoute,
         };
 
         return service;
 
-        function getAllRoutes() {
+        function activeDriverRoute(route) {
              var defer = $q.defer();
 
-             $http.get(apiUrl + '/routes')
+             $http.post(apiUrl + '/drivers/' + route._id, route)
                   .then(
                        function(response) {
                             defer.resolve(response.data);
                        },
                        function(error) {
                             defer.reject(error);
-                            toastr.error('Error getting routes', 'Error');
+                            toastr.error('Error adding driver route', 'Error');
                        }
                   );
 
              return defer.promise;
         }
 
-        function getByRouteId(id) {
+        function removeDriverRoute(route) {
              var defer = $q.defer();
 
-             $http.get(apiUrl + '/routes/' + id)
+             $http.delete(apiUrl + '/drivers/' + route._id, route)
                   .then(
                        function(response) {
                             defer.resolve(response.data);
                        },
                        function(error) {
                             defer.reject(error);
-                            toastr.error('Error getting routes', 'Error');
+                            toastr.error('Error deleting driver route', 'Error');
                        }
                   );
 
              return defer.promise;
-        }
+         }
     }
 })();
