@@ -17,12 +17,14 @@
     var marker = null;
     var myLatlng = new google.maps.LatLng(32.771952, -117.188150);
     var originationPickups = [];
+    var originationRoute = [];
     var passenger = [];
     var passengerOriginationRoute = [];
     var passengerOriginationPoint = {};
     var passengerReturnRoute = [];
     var passengerReturnPoint = {};
     var returnPickups = [];
+    var returnRoute = [];
     var wayptsOrigination = [];
     var wayptsReturn = [];
 
@@ -40,43 +42,51 @@
     /////////////////////////////////////////////////////////////////
 
     //Sets the user driver route per selection and insures only one route is active
-    function activeRoute(route) {
-      var index = vm.routes.indexOf(route);
+    function activeRoute(pickup) {
+      var index = vm.pickups.indexOf(pickup);
 
-      for (i = 0; i < vm.routes.length; i++) {
-        if (i != index && route.originationTrip == vm.status) {
-          vm.routes[i].myStartRoute = false;
-        };
+      for (i = 0; i < vm.pickups.length; i++) {
+        if (i != index) {
+          vm.pickups[i].myStartRoute = false;
+        }
+
+        if (originationRoute.originationTrip == true && vm.pickups[i].myStartRoute == true) {
+             passenger[0].originationPickupId = vm.pickups[i]._id;
+             passenger[0].originationRouteId = originationRoute._id;
+             vm.originationPickupName = vm.pickups[i].locationName;
+          var pickupPointUpdate = {
+            '_id': vm.profileId,
+            'pickupPoint': passenger
+          };
+          var newPassengerOriginationPoint = {
+               'lat': vm.pickups[i].pickupLat,
+               'lng': vm.pickups[i].pickupLong
+          };
+          googleMapMarkers(originationRoute, originationPickups, newPassengerOriginationPoint);
+     } else if (returnRoute.originationTrip != true && vm.pickups[i].myStartRoute == true) {
+          passenger[0].returnPickupId = vm.pickups[i]._id;
+          passenger[0].returnRouteId = returnRoute._id;
+          vm.returnPickupName = vm.pickups[i].locationName;
+          var pickupPointUpdate = {
+            '_id': vm.profileId,
+            'pickupPoint': passenger
+          };
+          var newPassengerReturnPoint = {
+               'lat': vm.pickups[i].pickupLat,
+               'lng': vm.pickups[i].pickupLong
+          };
+          googleMapMarkers(returnRoute, returnPickups, newPassengerReturnPoint);
+        }
       };
 
-      if (route.originationTrip == true) {
-        vm.profile.driver[0].originationId = route._id;
-        var routeStatusUpdate = {
-          '_id': vm.profileId,
-          'driver': vm.profile.driver
-        };
-      } else {
-        vm.profile.driver[0].returnId = route._id;
-        var routeStatusUpdate = {
-          '_id': vm.profileId,
-          'driver': vm.profile.driver
-        };
-      }
-
-      profileFactory.updateProfile(routeStatusUpdate).then();
+       profileFactory.updateProfile(pickupPointUpdate).then();
     }
 
     //Displays the pickup points on the Google Maps screen
     function calculateAndDisplayRoute(route, waypts, directionsService, directionsDisplay) {
       directionsService.route({
-        origin: {
-          lat: route.routeStartLat,
-          lng: route.routeStartLong
-        },
-        destination: {
-          lat: route.routeEndLat,
-          lng: route.routeEndLong
-        },
+        origin: waypts[0].location,
+        destination: waypts[2].location,
         waypoints: waypts,
         optimizeWaypoints: true,
         travelMode: 'DRIVING'
@@ -100,14 +110,56 @@
     //Google map settings
     function googleMaps() {
       var mapOptions = {
-        center: myLatlng,
-        zoom: 11,
+        control: {},
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
+
       var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+      vm.directionsDisplay = new google.maps.DirectionsRenderer({
+        suppressMarkers: true
+      });
+
       vm.directionsDisplay.setMap(map);
       vm.map = map;
     }
+
+    //Loop through array of pickup points & places marker for each one on the map
+    function googleMapMarkers(route, pickupPoints, passengerPickupPoint) {
+      vm.route = route;
+      vm.routeName = route.routeName;
+      vm.pickups = pickupPoints;
+
+      // Allow each marker to have an info window
+      var infoWindow = new google.maps.InfoWindow(),
+        marker, i;
+      var icon = [];
+
+      //Sets unique color marker for pick-up point
+      for (i = 0; i < pickupPoints.length; i++) {
+        if (pickupPoints[i].pickupLat == passengerPickupPoint.lat && pickupPoints[i].pickupLong == passengerPickupPoint.lng) {
+          icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+        } else {
+          icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+        };
+
+        var position = new google.maps.LatLng(pickupPoints[i].pickupLat, pickupPoints[i].pickupLong);
+        marker = new google.maps.Marker({
+          position: position,
+          icon: icon,
+          map: vm.map
+        });
+
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+          return function() {
+            infoWindow.setContent(pickupPoints[i].locationName);
+            infoWindow.open(map, marker);
+          }
+        })(marker, i));
+      }
+    }
+
+
 
     //Opens the modal and calls google maps to render
     function openModal(index) {
@@ -115,26 +167,11 @@
       googleMaps();
 
       if (index == 1) {
-        vm.pickups = originationPickups;
+        googleMapMarkers(originationRoute, originationPickups, passengerOriginationPoint);
         vm.calculateAndDisplayRoute(vm.originationRoute, wayptsOrigination, vm.directionsService, vm.directionsDisplay);
-        vm.directionsDisplay = new google.maps.DirectionsRenderer({
-          suppressMarkers: true
-        });
-        marker = new google.maps.Marker({
-          position: passengerOriginationPoint,
-          map: vm.map,
-          title: 'Hello World!'
-        });
-        var passengerPickupPoint = new google.maps.LatLng(passengerOriginationPoint.lat, passengerOriginationPoint.lng);
-        vm.map.panTo(passengerPickupPoint);
       } else if (index == 2) {
-        vm.pickups = returnPickups;
+        googleMapMarkers(returnRoute, returnPickups, passengerReturnPoint);
         vm.calculateAndDisplayRoute(vm.returnRoute, wayptsReturn, vm.directionsService, vm.directionsDisplay);
-        marker = new google.maps.Marker({
-          position: passengerReturnPoint,
-          map: map,
-          title: 'Hello World!'
-        });
       }
 
       //Sets the modal toggle button positions per selected user passenger pickup points
@@ -189,25 +226,25 @@
 
           //Pulls the origination pickup point per the user parameter
           tripRoutesFactory.getByRouteId(vm.originationRouteId).then(
-            function(originationRoute) {
-              vm.originationRoute = originationRoute.route;
-              originationPickups = vm.originationRoute.pickupPoint;
+            function(routes) {
+              originationRoute = routes.route;
+              originationPickups = originationRoute.pickupPoint;
 
               //Resets Origination waypoints
               wayptsOrigination = [];
 
-              for (i = 0; i < vm.originationRoute.pickupPoint.length; i++) {
-                if (vm.originationRoute.pickupPoint[i]._id == passenger[0].originationPickupId) {
-                  vm.originationPickupName = vm.originationRoute.pickupPoint[i].locationName;
+              for (i = 0; i < originationPickups.length; i++) {
+                if (originationPickups[i]._id == passenger[0].originationPickupId) {
+                  vm.originationPickupName = originationPickups[i].locationName;
                   passengerOriginationPoint = {
-                    'lat': vm.originationRoute.pickupPoint[i].pickupLat,
-                    'lng': vm.originationRoute.pickupPoint[i].pickupLong
+                    'lat': originationPickups[i].pickupLat,
+                    'lng': originationPickups[i].pickupLong
                   }
                 };
                 wayptsOrigination.push({
                   'location': {
-                    lat: vm.originationRoute.pickupPoint[i].pickupLat,
-                    lng: vm.originationRoute.pickupPoint[i].pickupLong
+                    lat: originationPickups[i].pickupLat,
+                    lng: originationPickups[i].pickupLong
                   }
                 });
               }
@@ -215,25 +252,25 @@
 
           //Pulls the return pickup point per the user parameter
           tripRoutesFactory.getByRouteId(vm.returnRouteId).then(
-            function(returnRoute) {
-              vm.returnRoute = returnRoute.route;
-              returnPickups = vm.returnRoute.pickupPoint;
+            function(routes) {
+              returnRoute = routes.route;
+              returnPickups = returnRoute.pickupPoint;
 
               //Resets Return waypoints
               wayptsReturn = [];
 
-              for (i = 0; i < vm.returnRoute.pickupPoint.length; i++) {
-                if (vm.returnRoute.pickupPoint[i]._id == passenger[0].returnPickupId) {
-                  vm.returnPickupName = vm.returnRoute.pickupPoint[i].locationName;
+              for (i = 0; i < returnPickups.length; i++) {
+                if (returnPickups[i]._id == passenger[0].returnPickupId) {
+                  vm.returnPickupName = returnPickups[i].locationName;
                   passengerReturnPoint = {
-                    'lat': vm.returnRoute.pickupPoint[i].pickupLat,
-                    'lng': vm.returnRoute.pickupPoint[i].pickupLong
+                    'lat': returnPickups[i].pickupLat,
+                    'lng': returnPickups[i].pickupLong
                   }
                 };
                 wayptsReturn.push({
                   'location': {
-                    lat: vm.returnRoute.pickupPoint[i].pickupLat,
-                    lng: vm.returnRoute.pickupPoint[i].pickupLong
+                    lat: returnPickups[i].pickupLat,
+                    lng: returnPickups[i].pickupLong
                   }
                 });
               }

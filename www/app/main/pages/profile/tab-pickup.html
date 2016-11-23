@@ -4,7 +4,7 @@
     <!-- Render the cards for user origination and return pickup points -->
     <div class="list card">
       <div class="item item-divider">
-        Origination Point
+        Origination Point to USD
       </div>
       <div class="item item-button-right">
           <p>{{vm.originationPickupName}}</p>
@@ -15,7 +15,7 @@
     </div>
     <div class="list card">
       <div class="item item-divider">
-        Return Point
+        Return Point from USD
       </div>
       <div class="item item-button-right">
           <p>{{vm.returnPickupName}}</p>
@@ -39,16 +39,19 @@
           <button class="button button-icon ion-ios-checkmark-outline" ng-click="vm.closeModal()"></button>
         </div>
       </ion-header-bar>
+      <ion-header-bar class="bar bar-subheader">
+        <h1 class="title">{{vm.routeName}}</h1>
+      </ion-header-bar>
       <ion-content>
         <!-- Renders the google maps screen on the route modal page -->
         <div id="map" data-tap-disabled="true"></div>
         <!-- Render the list of all available origination/return pickup points -->
         <ion-list>
           <div class="item item-divider" ng-show="vm.status == true">
-            Origination Point
+            Origination Points
           </div>
           <div class="item item-divider" ng-show="vm.status != true">
-            Return Point
+            Return Points
           </div>
           <ion-item class="item item-toggle" ng-repeat="pickup in vm.pickups | orderBy: 'locationName'">
             <p>{{pickup.locationName}}</p>
@@ -56,7 +59,7 @@
               <input
                type="checkbox"
                ng-model="pickup.myStartRoute"
-               ng-change="vm.calculateAndDisplayRoute(route, vm.directionsService, vm.directionsDisplay); vm.activeRoute(route)">
+               ng-change="vm.activeRoute(pickup)">
               <div class="track">
                 <div class="handle"></div>
               </div>

@@ -53,7 +53,7 @@
         };
       }
 
-      profileFactory.updateProfile(routeStatusUpdate).then();
+      //profileFactory.updateProfile(routeStatusUpdate).then();
     }
 
     //Displays the routes on the Google Maps screen

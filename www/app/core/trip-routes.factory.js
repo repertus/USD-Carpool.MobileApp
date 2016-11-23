@@ -43,7 +43,7 @@
                        },
                        function(error) {
                             defer.reject(error);
-                            toastr.error('Error getting item detail', 'Error');
+                            toastr.error('Error getting routes', 'Error');
                        }
                   );
 

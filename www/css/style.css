@@ -203,7 +203,7 @@ b, strong {
 *********************************/
 .bar-header {
      background-color: #003B70;
-     border-bottom: 3px solid #69A7CC;
+     border-bottom: 1px solid #69A7CC;
 }
 
 .bar-header .title {
