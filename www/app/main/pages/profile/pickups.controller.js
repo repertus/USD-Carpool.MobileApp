@@ -50,7 +50,7 @@
           vm.pickups[i].myStartRoute = false;
         }
 
-        if (originationRoute.originationTrip == true && vm.pickups[i].myStartRoute == true) {
+        if (vm.status == true && vm.pickups[i].myStartRoute == true) {
              passenger[0].originationPickupId = vm.pickups[i]._id;
              passenger[0].originationRouteId = originationRoute._id;
              vm.originationPickupName = vm.pickups[i].locationName;
@@ -63,7 +63,7 @@
                'lng': vm.pickups[i].pickupLong
           };
           googleMapMarkers(originationRoute, originationPickups, newPassengerOriginationPoint);
-     } else if (returnRoute.originationTrip != true && vm.pickups[i].myStartRoute == true) {
+     } else if (vm.status != true && vm.pickups[i].myStartRoute == true) {
           passenger[0].returnPickupId = vm.pickups[i]._id;
           passenger[0].returnRouteId = returnRoute._id;
           vm.returnPickupName = vm.pickups[i].locationName;
