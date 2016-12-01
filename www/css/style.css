@@ -230,3 +230,10 @@ b, strong {
      background-color: #003B70;
      border-top: 4px solid #69A7CC;
 }
+
+/*****************************
+**Friends top tabs rendering**
+*****************************/
+ion-tabs.tabs-color-active-positive .tab-itme.active {
+     color: #fff;
+}
