@@ -9,6 +9,11 @@
 
     $stateProvider
     /////// Login State ///////
+      .state('login', {
+           url: '/login',
+           controller: 'UserLoginController as vm',
+           templateUrl: 'app/main/pages/auth/login/user.login.html'
+      })
 
     /////// User States ///////
       .state('tab', {
@@ -96,7 +101,8 @@
       url: '/list',
       views: {
         'tab-list': {
-          templateUrl: 'app/main/apps/friends/list/list.html'
+          templateUrl: 'app/main/apps/friends/list/list.html',
+          controller: 'FriendListController as vm'
         }
       }
     }).state('tab-friends.requests', {
@@ -123,6 +129,7 @@
       }
     });
 
-    $urlRouterProvider.otherwise('/tab/home');
+    $urlRouterProvider.otherwise('/login');
+    // $urlRouterProvider.otherwise('/tab/home');
   };
 })();

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title></title>
+    <!-- <title></title> -->
 
     <link rel="manifest" href="manifest.json">
 
@@ -48,6 +48,7 @@
     <script src="app/app.config.js"></script>
     <script src="app/app.route.js"></script>
     <script src="app/core/driver.factory.js"></script>
+    <script src="app/core/friends-old.factory.js"></script>
     <script src="app/core/friends.factory.js"></script>
     <script src="app/core/profile.factory.js"></script>
     <script src="app/core/school.factory.js"></script>
@@ -63,16 +64,18 @@
     <script src="app/main/pages/profile/routes.controller.js"></script>
     <script src="app/main/pages/profile/vehicle.detail.controller.js"></script>
     <script src="app/main/pages/profile/vehicle.grid.controller.js"></script>
+    <script src="app/main/apps/friends/list/list.controller.js"></script>
+    <script src="app/main/pages/auth/login/user.login.controller.js"></script>
     <!-- endinject -->
   </head>
   <body ng-app="app">
     <!--
       The nav bar that will be updated as we navigate between views.
     -->
-    <ion-nav-bar class="bar-stable">
+    <!-- <ion-nav-bar class="bar-stable">
       <ion-nav-back-button class="button-light">
       </ion-nav-back-button>
-    </ion-nav-bar>
+    </ion-nav-bar> -->
     <!--
       The views will be rendered in the <ion-nav-view> directive below
       Templates are in the /templates folder (but you could also

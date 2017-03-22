@@ -1,7 +1,75 @@
 /* Empty. Add your own CSS if you like */
-/*.pane {
-    background-color: #69A7CC;
-}*/
+
+/*****************************
+**Styling for the Login Form**
+******************************/
+.amigoesPicDiv {
+  text-align: center;
+  margin: 20px 0 20px 0;
+}
+
+.amigoesImage {
+  width: 90%;
+}
+
+.hideMessage {
+  display: none;
+}
+
+.formErrors {
+  color: red;
+  margin: 0 0 0 15px;
+}
+
+.loginPage {
+  background-color: #003b70;
+}
+
+.forgotPassword {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 20px;
+}
+
+.forgotPassword a:link,
+ .forgotPassword a:visited,
+ .newAccount a:link,
+ .newAccount a:visited {
+    text-decoration: none;
+    font-weight: 600;
+    color: #fff;
+}
+
+.login-button {
+    background-color: #93C7F6;
+    color: #fff;
+    width: 95% !important;
+    margin-top: 35px !important;
+    margin: auto;
+}
+
+.newAccount {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 30px;
+}
+
+.newAccount p {
+    color: #93C7F6;
+}
+
+.borderRemove {
+  border-bottom: 0 !important;
+}
+
+.loginValidator {
+  height: 25px;
+  vertical-align: middle;
+}
+
+.list {
+  margin-bottom: 0;
+}
 
 /************************
 **Top title bar styling**
