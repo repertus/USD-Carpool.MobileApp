@@ -1,65 +1,63 @@
 (function() {
-    'use strict';
+  'use strict';
 
-    angular
-        .module('app')
-        .factory('friendsFactory', friendsFactory);
+  angular.module('app').factory('friendsFactory', friendsFactory);
 
-    friendsFactory.$inject = [];
+  friendsFactory.$inject = ['$http', '$q', 'toastr', 'apiUrl'];
 
-    /* @ngInject */
-    function friendsFactory() {
-         var chats = [{
-          id: 0,
-          name: 'Ben Sparrow',
-          lastText: 'You on your way?',
-          face: 'img/ben.png'
-        }, {
-          id: 1,
-          name: 'Max Lynx',
-          lastText: 'Hey, it\'s me',
-          face: 'img/max.png'
-        }, {
-          id: 2,
-          name: 'Adam Bradleyson',
-          lastText: 'I should buy a boat',
-          face: 'img/adam.jpg'
-        }, {
-          id: 3,
-          name: 'Perry Governor',
-          lastText: 'Look at my mukluks!',
-          face: 'img/perry.png'
-        }, {
-          id: 4,
-          name: 'Mike Harrington',
-          lastText: 'This is wicked good ice cream.',
-          face: 'img/mike.png'
-        }];
-        
-        var service = {
-            all: all,
-            get: get,
-            remove: remove
-        };
+  /* @ngInject */
+  function friendsFactory($http, $q, toastr, apiUrl) {
+    var service = {
+      addFriend: addFriend,
+      getFriendsById: getFriendsById,
+      updateFriend: updateFriend
+    };
 
-        return service;
+    return service;
 
-        function all(){
-             return chats;
-        }
+    function addFriend(friend) {
+      var defer = $q.defer();
 
-        function get(chatId){
-             for (var i = 0; i < chats.length; i++) {
-               if (chats[i].id === parseInt(chatId)) {
-                return chats[i];
-               }
-             }
-             return null;
-        }
+      $http.post(apiUrl + '/friends', friend).then(function(response) {
+        defer.resolve(response.data);
+        toastr.success('Successfully added friend', 'Saved');
+      }, function(error) {
+        defer.reject(error);
+        toastr.error('Error adding friend', 'Error');
+      });
 
-        function remove(chat) {
-             chats.splice(chats.indexOf(chat), 1);
-        }
-
+      return defer.promise;
     }
+
+    function getFriendsById(id) {
+         var defer = $q.defer();
+
+         $http.get(apiUrl + '/friends/' + id)
+              .then(
+                   function(response) {
+                        defer.resolve(response.data);
+                   },
+                   function(error) {
+                        defer.reject(error);
+                        toastr.error('Error getting friends', 'Error');
+                   }
+              );
+
+         return defer.promise;
+    }
+
+    function updateFriend(friend) {
+      var defer = $q.defer();
+
+      $http.put(apiUrl + '/friends/' + friend._id, friend).then(function() {
+        defer.resolve();
+        toastr.success('Successfully updated item', 'Saved');
+      }, function(error) {
+        defer.reject(error);
+        toastr.error('Error updating item', 'Error');
+      });
+
+      return defer.promise;
+    }
+  }
 })();
