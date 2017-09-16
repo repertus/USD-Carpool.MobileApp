@@ -15,6 +15,13 @@
            templateUrl: 'app/main/pages/auth/login/user.login.html'
       })
 
+    /////// Registration State ///////
+        .state('register', {
+            url: '/register',
+            controller: 'UserRegisterController as vm',
+            templateUrl: 'app/main/pages/auth/register/user.registration.html'
+        })
+
     /////// User States ///////
       .state('tab', {
       url: '/tab',
@@ -129,7 +136,7 @@
       }
     });
 
-    $urlRouterProvider.otherwise('/login');
+    $urlRouterProvider.otherwise('/register');
     // $urlRouterProvider.otherwise('/tab/home');
   };
 })();

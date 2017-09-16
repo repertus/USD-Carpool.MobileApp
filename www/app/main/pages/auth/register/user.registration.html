@@ -1,0 +1,106 @@
+<ion-view view-title="Registration">
+	<ion-nav-buttons side="right">
+     	<a class="button button-icon ion-camera button-positive" ng-click="vm.selfPictureUpdate()"></a>
+    </ion-nav-buttons>
+    <ion-content>
+      	<div class="row" id="myInfoAvatar">
+        	<div id="avatarPlaceHolderCircle"></div>
+        	<div id="avatarPlaceHolder"></div>
+        	<div id="avatarCircle" ng-show="vm.selfPic === undefined || vm.selfPic === ''">
+             	<i  class="icon ion-android-person" id="avatarImage"></i>
+        	</div>
+        	<img ng-show="vm.selfPic !== undefined" ng-src="{{vm.selfPic}}" id="selfPicHolder">
+      	</div>
+		<form name="userRegistration" novalidate ng-submit="vm.registerUser(userRegistration.$valid, vm.profile)">
+			<div class="list">
+	        	<label class="item item-input">
+	          		<span class="input-label">First Name</span>
+	          		<input type="text" name="firstName" ng-model="vm.profile.firstName" required>
+	        	</label>
+				<div>
+					<p ng-show="userRegistration.firstName.$invalid && userRegistration.firstName.$touched" class="formErrors">A valid registered edu address is required.</p>
+				</div>
+		        <label class="item item-input">
+		          	<span class="input-label">Last Name</span>
+		          	<input type="text" ng-model="vm.profile.lastName" required>
+		        </label>
+		        <label class="item item-input">
+						<span class="input-label">Email</span>
+			          	<input
+							type="email"
+							name="email"
+							ng-model="vm.profile.email" ng-pattern="/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+-]+\.edu$/"
+							placeholder="student@example.edu"
+							required>
+		        </label>
+				<div>
+					<p ng-show="userRegistration.email.$invalid && userRegistration.email.$touched" class="formErrors">A valid registered edu address is required.</p>
+				</div>
+		        <label class="item item-input">
+		          	<span class="input-label">Phone</span>
+		          	<input
+						type="tel"
+						name="phone"
+						ng-model="vm.profile.phone"
+						ng-pattern="/^[0-9]{1,10}$/"
+						maxlength="10"
+						placeholder="format: 1234567890"
+						required>
+		        </label>
+				<div>
+					<p ng-show="userRegistration.phone.$invalid && userRegistration.phone.$touched" class="formErrors">Format as 1234567890</p>
+				</div>
+		        <label class="item item-input">
+		          	<span class="input-label">School</span>
+		          	<input
+						type="text"
+						ng-model="vm.profile.school"
+						required
+						placeholder="click to select school"
+						ng-click="vm.openModal()">
+		        </label>
+		        <div class="row">
+		          	<div class="col-10"></div>
+		          	<div class="col-80">
+		            	<button class="button button-block button-stable" ng-disabled="userRegistration.$invalid">
+		              	Next <span class="ion-arrow-right-c"></span>
+		            	</button>
+		          	</div>
+		          	<div class="col-10"></div>
+		        </div>
+	      	</div>
+		</form>
+	</ion-content>
+
+	<!--University Listing Modal -->
+    <script id="school-list.html" type="text/ng-template">
+	    <ion-modal-view>
+	        <ion-header-bar>
+	          <h1 class="title">University Listings</h1>
+	          <div class="buttons">
+	            <button class="button button-icon ion-ios-search" ng-click="vm.showFilterBar()"></button>
+	          </div>
+	          <div class="buttons">
+	            <button class="button button-icon ion-ios-checkmark-outline" ng-click="vm.closeModal()"></button>
+	          </div>
+	        </ion-header-bar>
+	        <ion-content>
+				<ion-list>
+		            <ion-item
+		                class="item item-toggle"
+						ng-repeat="school in vm.schools| orderBy: 'name'">
+		              	<p>{{school.name}}</p>
+		              	<label class="toggle">
+			                <input
+			                 	type="checkbox"
+			                 	ng-model="school.schoolActiveStatus" ng-change="vm.activeSchool(school)">
+			                <div class="track">
+			                  	<div class="handle"></div>
+			                </div>
+		              	</label>
+		            </ion-item>
+	          	</ion-list>
+	        </ion-content>
+	    </ion-modal-view>
+    </script>
+</ion-view>

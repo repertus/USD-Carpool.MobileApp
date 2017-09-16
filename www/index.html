@@ -20,6 +20,7 @@
 
     <!-- bower:css -->
     <link rel="stylesheet" href="lib/angular-toastr/dist/angular-toastr.css" />
+    <link rel="stylesheet" href="lib/ion-autocomplete/dist/ion-autocomplete.css" />
     <!-- endbower -->
 
     <!-- inject:css -->
@@ -37,6 +38,7 @@
     <!-- bower:js -->
     <script src="lib/angular-toastr/dist/angular-toastr.tpls.js"></script>
     <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+    <script src="lib/ion-autocomplete/dist/ion-autocomplete.js"></script>
     <!-- endbower -->
 
     <!-- cordova script (this will be a 404 during development) -->
@@ -65,6 +67,7 @@
     <script src="app/main/pages/profile/vehicle.detail.controller.js"></script>
     <script src="app/main/pages/profile/vehicle.grid.controller.js"></script>
     <script src="app/main/apps/friends/list/list.controller.js"></script>
+    <script src="app/main/pages/auth/register/user.register.controller.js"></script>
     <script src="app/main/pages/auth/login/user.login.controller.js"></script>
     <!-- endinject -->
   </head>
@@ -72,10 +75,10 @@
     <!--
       The nav bar that will be updated as we navigate between views.
     -->
-    <!-- <ion-nav-bar class="bar-stable">
+    <ion-nav-bar class="bar-stable">
       <ion-nav-back-button class="button-light">
       </ion-nav-back-button>
-    </ion-nav-bar> -->
+    </ion-nav-bar>
     <!--
       The views will be rendered in the <ion-nav-view> directive below
       Templates are in the /templates folder (but you could also
