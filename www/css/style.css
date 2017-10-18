@@ -71,6 +71,18 @@
   margin-bottom: 0;
 }
 
+/***********************************
+**Styling for the Credentials Form**
+***********************************/
+.heightSetting {
+    height: inherit;
+}
+
+.authSubmitBtn {
+    position: absolute;
+    bottom: 10%;
+}
+
 /************************
 **Top title bar styling**
 ************************/

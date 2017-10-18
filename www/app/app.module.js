@@ -7,6 +7,7 @@
 			'ion-autocomplete',
             'toastr',
             'ngCordova',
-            'jett.ionic.filter.bar'
+            'jett.ionic.filter.bar',
+            'firebase'
         ]);
 })();
