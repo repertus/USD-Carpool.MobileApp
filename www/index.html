@@ -35,20 +35,38 @@
     <script src="lib/ionic/js/ionic.bundle.js"></script>
     <script src="lib/ionic-filter-bar/dist/ionic.filter.bar.min.js"></script>
 
+     <!-- cordova script (this will be a 404 during development) -->
+     <script src="cordova.js"></script>
+     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQUNP4-fncsTLPAvqBnSZ_NZ_JFnms2Rw"></script>
+     <script src="https://www.gstatic.com/firebasejs/4.4.0/firebase.js"></script>
+
     <!-- bower:js -->
     <script src="lib/angular-toastr/dist/angular-toastr.tpls.js"></script>
     <script src="lib/ngCordova/dist/ng-cordova.js"></script>
     <script src="lib/ion-autocomplete/dist/ion-autocomplete.js"></script>
+    <script src="lib/angularfire/dist/angularfire.js"></script>
     <!-- endbower -->
 
-    <!-- cordova script (this will be a 404 during development) -->
-    <script src="cordova.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQUNP4-fncsTLPAvqBnSZ_NZ_JFnms2Rw"></script>
+    <!-- initialize Firebase -->
+    <script>
+      var config = {
+          apiKey: "AIzaSyB1i2swvgGsbNZylsIHFQfWSOjRkCQi1Tw",
+          authDomain: "usd-carpool.firebaseapp.com",
+          databaseURL: "https://usd-carpool.firebaseio.com",
+          projectId: "usd-carpool",
+          storageBucket: "usd-carpool.appspot.com",
+          messagingSenderId: "72591002426"
+        };
+
+        firebase.initializeApp(config);
+    </script>
+    <!-- end initialize Firebase -->
 
     <!-- inject:js -->
     <script src="app/app.module.js"></script>
     <script src="app/app.config.js"></script>
     <script src="app/app.route.js"></script>
+    <script src="app/core/auth.factory.js"></script>
     <script src="app/core/driver.factory.js"></script>
     <script src="app/core/friends-old.factory.js"></script>
     <script src="app/core/friends.factory.js"></script>
@@ -67,8 +85,9 @@
     <script src="app/main/pages/profile/vehicle.detail.controller.js"></script>
     <script src="app/main/pages/profile/vehicle.grid.controller.js"></script>
     <script src="app/main/apps/friends/list/list.controller.js"></script>
-    <script src="app/main/pages/auth/register/user.register.controller.js"></script>
+    <script src="app/main/pages/auth/credentials/user.credentials.controller.js"></script>
     <script src="app/main/pages/auth/login/user.login.controller.js"></script>
+    <script src="app/main/pages/auth/register/user.register.controller.js"></script>
     <!-- endinject -->
   </head>
   <body ng-app="app">

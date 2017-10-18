@@ -5,15 +5,18 @@
         .module('app')
         .controller('UserLoginController', UserLoginController);
 
-    UserLoginController.$inject = ['$scope'];
+    UserLoginController.$inject = ['$scope', 'authFactory'];
 
     /* @ngInject */
-    function UserLoginController($scope) {
+    function UserLoginController($scope, authFactory) {
         var vm = this;
 
-     //Methods
-     vm.inputStatus = inputStatus;
-     vm.login = login;
+        //Properties
+        var user = vm.user;
+
+        //Methods
+        vm.inputStatus = inputStatus;
+        vm.login = login;
 
         activate();
 
@@ -30,9 +33,12 @@
         }
 
         function login(isValid) {
-             if(isValid) {
-                  alert('our form is amazing');
-             }
+            if(isValid) {
+                authFactory.loginUser(vm.user)
+                    .then(function (userId) {
+                        console.log(userId);
+                    });
+            }
         }
 
      //    $scope.$on('$ionicView.beforeEnter', function() {

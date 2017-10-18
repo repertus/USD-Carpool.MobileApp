@@ -15,7 +15,7 @@ gulp.task('inject', function() {
           .pipe(wiredep({
                directory: './www/lib',
                // devDependencies: true,
-              exclude: ['/angular/', 'angular-animate', 'angular-mocks', 'angular-resource',       'angular-sanitize', 'angular-ui-router']
+              exclude: ['/angular/', 'angular-animate', 'angular-mocks', 'angular-resource','angular-sanitize', 'angular-ui-router', 'firebase']
             }))
           .pipe(inject(gulp.src(paths.javascript, {read: false}), {relative: true}))
           .pipe(gulp.dest('./www'))
